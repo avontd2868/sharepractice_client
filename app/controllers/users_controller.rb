@@ -1,27 +1,31 @@
 class UsersController < ApplicationController
+  # def new
+  #   @user = User.new
+  # end
 
-  def new
-    User.new(id, params)
-  end
-
-  def create
-
-  end
+  # def create
+  #   @user = User.new(params[:user])
+  #   if @user.save
+  #     redirect_to @user
+  #   end
+  #     render :new
+  #   end
+  # end
 
   def show
-    @user
+    @user = SpUser.find_by_id(params[:id])
   end
 
-  def edit
+  # def edit
+  #   @user 
+  # end
 
-  end
+  # def save
+  #   #pass in params in hash from view
+  #   @user.change_attributes(params)
+  # end
 
-  def save
-    #pass in params in hash from view
-    @user.change_attributes(params)
-  end
-
-  def destroy
-    @user.destroy
-  end
+  # def destroy
+  #   @user.destroy
+  # end
 end
