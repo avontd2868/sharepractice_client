@@ -2,8 +2,7 @@ SpWebapp::Application.routes.draw do
 
   root :to => 'application#index'
   #resources :users
-  match 'users/:username', to: 'users#view'
-
+  match 'users/:username', to: 'users#show'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

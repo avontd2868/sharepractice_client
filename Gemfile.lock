@@ -43,6 +43,9 @@ GEM
       xpath (~> 1.0.0)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
+    clearance (0.16.3)
+      diesel (~> 0.1.5)
+      rails (>= 3.0)
     coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -51,6 +54,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
+    diesel (0.1.5)
+      railties
     diff-lcs (1.2.2)
     erubis (2.7.0)
     execjs (1.4.0)
@@ -196,6 +201,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   capybara
+  clearance
   coffee-rails (~> 3.2.1)
   factory_girl_rails
   faker
@@ -207,7 +213,7 @@ DEPENDENCIES
   pg
   quiet_assets
   rails (= 3.2.12)
-  rspec-rails
+  rspec-rails (>= 2.0.0.beta)
   sass-rails (~> 3.2.3)
   shoulda-matchers
   simplecov

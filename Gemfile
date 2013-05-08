@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+#gem 'bcrypt'
+gem 'clearance'
 gem 'figaro'
 gem 'httparty'
 gem 'jquery-rails'
@@ -21,7 +23,7 @@ group :development, :test do
   gem 'faker'
   gem 'guard-rspec'
   gem 'guard-spork'
-  gem 'rspec-rails'
+  gem 'rspec-rails', ">= 2.0.0.beta"
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'spork'
