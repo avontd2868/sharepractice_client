@@ -9,6 +9,12 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+config = YAML.load(File.read(File.expand_path('../application.yml', __FILE__)))
+config.merge! config.fetch(Rails.env, {})
+config.each do |key, value|
+  ENV[key] = value.to_s unless value.kind_of? Hash
+end
+
 module SpWebapp
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -62,5 +68,12 @@ module SpWebapp
     config.generators do |g|
         g.test_framework :rspec
     end
+
+    # def authenticate
+    #   if APP_CONFIG['production_api']
+    #     use_production_api_base_url do resource
+    #       resource = APP_CONFIG['api_url']
+    #   end
+    # end
   end
 end
