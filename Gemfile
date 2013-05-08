@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'figaro'
 gem 'httparty'
 gem 'jquery-rails'
 gem 'pg'
