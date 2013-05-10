@@ -12,7 +12,7 @@ class SpUser
   # end
   default_params :output => 'json'
   format :json
-  
+
   attr_accessible :email, :first_name, :last_name, :npi, :phone, :degree, :specialty, :website, :location, :history, :verified, :avatar_url
 
   def initialize(email, password)
@@ -32,19 +32,7 @@ class SpUser
     @avatar_url = response[:avatar_url]
   end
 
-  def self.find_by_id(id)
-    get('/api/v1/users/', :query => {:id => id})
-  end
-
-  def self.find_by_email(email)
-    get('/api/v1/users/', :query => {:email => email})
-  end
-
-  def self.find_followers_of(user_id)
-    get('api/v1/colleagues/followers/', :query => {:id => user_id})
-  end
-
-  def self.find_following_by(user_id)
-    get('api/v1/colleagues/following/', :query => {:id => user_id})
+  def handle_response
+    "User credentials are incorrect."
   end
 end
