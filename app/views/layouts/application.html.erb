@@ -9,14 +9,7 @@
 <body>
 
 <!--header-->
-    <ul class="custom_nav_title pull-right">
-      <% if signed_in? %>
-        <li class="auth_margin auth_name"><%= link_to current_user.name, current_user %></li>
-        <li class="auth_margin"><%= link_to 'Sign Out', signout_path %></li>
-      <% else %>
-        <li class="auth_margin"><%= link_to 'Sign in via Github', '/auth/github' %></li>
-      <% end %>
-    </ul>
+
 <!--header-->
 
 <%= yield %>

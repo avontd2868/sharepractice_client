@@ -1,4 +1,3 @@
-#require 'net/https'
 require 'httparty'
 
 class User 
@@ -7,12 +6,14 @@ class User
   default_params :format => 'json'
   format :json
 
-  def initialize(email, api_key)
-    @email    = email
-    @api_key  = api_key
-    @email    = email
-    response  = find_by_email(email)
-    puts "RESPONSE: ", response
+  attr_accessor :email, :api_key, :id
+
+  def initialize(response)
+    @email    = response["email"]
+    @api_key  = response["token"]
+    @id       = response[:id]
+    #puts "API KEY: #{@api_key}"
+    #puts "RESPONSE: #{response}"
     @first_name = response[:first_name]
     @last_name  =  response[:last_name]
     @npi        = response[:npi]
@@ -26,22 +27,37 @@ class User
     @avatar_url = response[:avatar_url]
   end
 
+#if it's a server error, will get html response back
+
   def self.login(email, password)
     response = User.post('/api/v1/tokens', :query => {:email => email, :password => password})
-    puts "response: #{response}"
-    puts "email: #{response["email"]}"
-    puts "token: #{response["token"]}"
-    User.new(response["email"], response["token"])
+    #puts "LOGIN RESPONSE: #{response}"
+    user = User.new(response)
+    #puts "USER API KEY: #{@api_key}"
+    response = user.find_by_email(user.email, user.api_key)
   end
 
-  def find_by_email(email)
-    resp = User.get('/api/v1/users/activity', :query => {:email => email, :api_key => @api_key})
-    puts resp
+  def find_by_email(email, api_key)
+    resp = User.get('/api/v1/users/activity', :query => {:email => email, :api_key => api_key})
+    #puts "FIND BY EMAIL RESPONSE: #{resp}"
   end
+
+  def find_by_id(id, api_key)
+    resp = User.get("/api/v1/users/#{id}/", :query => {:api_key => api_key})
+    #puts "FIND BY ID RESPONSE: #{resp}"
+  end
+
+  # def save(id, api_key, params)
+  #   #TODO: look at active record method "save" for models, and make the same
+  #   #OR: make the call directly to frontline API
+  #   #manage params key:value in query hash
+  #   resp = User.put("api/v1/users/#{id}/", :query => {:api_key => api_key})
+  #   true
+  # end
 end
 
-user = User.login("janet@sharepractice.com", "password")
-user.find_by_email("janet@sharepractice.com")
+#user = User.login("b@c.com", "password")
+#user.find_by_email("janet@sharepractice.com")
 
 
 # class UserController
