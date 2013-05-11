@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_filter :require_login
-# skip_before_filter :verify_authenticity_token
-# before_filter :authenticate_user #if you dont have token
+  #before_filter :require_login
+  # skip_before_filter :verify_authenticity_token
+  # before_filter :authenticate_user #if you dont have token
 
   # def new
   #   @user = User.new(response)
@@ -16,10 +16,19 @@ class UsersController < ApplicationController
   #   # end
   # end
 
-  # def show
-  #   @user = User.find_by_id(params[:id])
-  # end
+  def show
+    @id = session[:current_user_id]
+    @user = User.find_by_id(session[:current_user_id])
+    #if signed_in?
+    #  render @user
+    #else
+    #  redirect_to signin_path
+    #end
+  end
 
+  def signed_in?
+    !@current_user.nil?
+  end
   # def edit
   #   @user 
   # end

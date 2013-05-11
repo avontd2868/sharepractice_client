@@ -1,19 +1,19 @@
-<!--div id="navigation">
+<div id="navigation">
   <h1>My Profile</h1>
-  <% #if signed_in? %>
-    <%= render @user %>
-  <% #else %>
-    <%= #redirect_to :root %>
-  <% #end %>
 </div>
 
 <div class='container'>
   <div id='user-profile'>
-    <%= #link_to "Edit Profile", edit_user_path(@user) %>
+    <!--%= #link_to "Edit Profile", edit_user_path(@user) %-->
+    <%= puts "THIS IS THE ID #{@id}" %>
     <%= image_tag @user.avatar_url %>
-    <h1><%= #{}"First Name: #{@user.first_name} Last Name: #{@user.last_name}" %></h1>
-    <%= #{}"Degree: #{@user.degree}, Specialty: #{@user.specialty}" %>
-    <%= #{}"Location: @user.location" %>
-    <%= #{}"Website: @user.website" %>
+    <h1><%= "First Name: #{@user.first_name} Last Name: #{@user.last_name}" %></h1>
+    <%= "Degree: #{@user.degree}" %>
+    <%= "Specialty: #{@user.specialty}" %>
+    <%= "Location: #{@user.location}" %>
+    <%= "Website: #{@user.website}" %>
+
+    <%= "Email: #{@user.email} API: #{@user.api_key} ID: #{@user.id}" %>
+
   <div id='user-profile'>
-<div-->
+<div>

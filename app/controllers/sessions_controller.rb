@@ -14,6 +14,13 @@ class SessionsController < ApplicationController
     end
   end
 
+   # "Delete" a login, aka "log the user out"
+  def destroy
+    # Remove the user id from the session
+    @_current_user = session[:current_user_id] = nil
+    redirect_to root_url
+  end
+
   # def verify_session
   #   if
   #     return
@@ -21,13 +28,6 @@ class SessionsController < ApplicationController
   #     create_session
   #   end
   # end
-
-   # "Delete" a login, aka "log the user out"
-  def destroy
-    # Remove the user id from the session
-    @_current_user = session[:current_user_id] = nil
-    redirect_to root_url
-  end
 
     # def current_user
   #   if cookies[:remember_token].present?
@@ -37,10 +37,6 @@ class SessionsController < ApplicationController
 
   # def current_user=(user)
   #   @current_user = user
-  # end
-
-  # def signed_in?
-  #   !current_user.nil?
   # end
 
   # def sign_in(user)
@@ -53,7 +49,7 @@ class SessionsController < ApplicationController
   #   cookies.delete(:remember_token)
   # end
 
-  #   def authenticate_user
+  # def authenticate_user
   #   if signed_in?
   #     current_user.email
   #     link_to 'Sign out', sign_out_path, method: :delete

@@ -15,6 +15,9 @@ class ApplicationController < ActionController::Base
   # logging out removes it.
 
   def require_login
+    debugger
+    puts "LOGGED IN?????????"
+    puts logged_in?
     unless logged_in?
       flash[:error] = "You must be logged in to access this section"
       redirect_to signin_path # halts request cycle

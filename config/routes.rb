@@ -10,7 +10,7 @@ SpWebapp::Application.routes.draw do
   #edit   =users/id/edit
   #update =users/id
   #match '/signup',  to: 'users#new'
-  #match '/profile', to: 'users#show'
+  match '/profile', to: 'users#show'
   #match '/profile/edit', to: 'users#edit'
 
   resources :sessions, only: [:new, :create, :destroy]

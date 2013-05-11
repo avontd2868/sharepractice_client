@@ -6,12 +6,12 @@ class User
   default_params :format => 'json'
   format :json
 
-  attr_accessor :email, :api_key, :id
+  attr_accessor :email, :api_key, :id, :first_name, :last_name, :npi, :phone, :degree, :specialty, :website, :location, :history, :verified, :avatar_url
 
   def initialize(response)
     @email    = response["email"]
     @api_key  = response["token"]
-    @id       = response[:id]
+    @id       = response["id"]
     #puts "API KEY: #{@api_key}"
     #puts "RESPONSE: #{response}"
     @first_name = response[:first_name]
@@ -34,17 +34,19 @@ class User
     #puts "LOGIN RESPONSE: #{response}"
     user = User.new(response)
     #puts "USER API KEY: #{@api_key}"
-    response = user.find_by_email(user.email, user.api_key)
+    user.find_by_email(user.email, user.api_key)
+    user
   end
 
   def find_by_email(email, api_key)
-    resp = User.get('/api/v1/users/activity', :query => {:email => email, :api_key => api_key})
+    User.get('/api/v1/users/activity', :query => {:email => email, :api_key => api_key})
     #puts "FIND BY EMAIL RESPONSE: #{resp}"
   end
 
-  def find_by_id(id, api_key)
-    resp = User.get("/api/v1/users/#{id}/", :query => {:api_key => api_key})
+  def self.find_by_id(id)
+    response = User.get("/api/v1/users/7/", :query => {:api_key => api_key='E3huDzCviMVHFbiudNTm'})
     #puts "FIND BY ID RESPONSE: #{resp}"
+    user = User.new(response)
   end
 
   # def save(id, api_key, params)
