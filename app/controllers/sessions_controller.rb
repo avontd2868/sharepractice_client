@@ -6,19 +6,28 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if user = User.login(params[:username], params[:password])
-      # Save the user ID in the session so it can be used in
-      # subsequent requests
-      session[:current_user_id] = user.id
-      redirect_to '/profile'
+    @current_user = User.login(params[:email], params[:password])
+
+    #if the user can be found, and the password is correct, it will return a User instance
+    puts "USER ID IS NIL? #{@current_user.to_yaml}" #when correct login credentials used, there is email and authenticity token stored, but no other user attributes
+    unless @current_user.nil?
+      # Save the user ID in the session so it can be used in subsequent requests
+      session[:current_user] = @current_user
+      session[:user_id] = @current_user.id
+      session[:api_key] = @current_user.api_key
+      redirect_to '/profile', notice: "Logged in!"
+    else
+      # this is not showing, even when before filter is taken out from users controller
+      flash.now.alert = "Email or password is invalid"
+      render 'new'
     end
   end
 
    # "Delete" a login, aka "log the user out"
   def destroy
     # Remove the user id from the session
-    @_current_user = session[:current_user_id] = nil
-    redirect_to root_url
+    session[:user_id] = nil
+    redirect_to root_url, notice: "Logged out!"
   end
 
   # def verify_session

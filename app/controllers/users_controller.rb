@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  #before_filter :require_login
-  # skip_before_filter :verify_authenticity_token
+  before_filter :require_login, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :current_user?
   # before_filter :authenticate_user #if you dont have token
 
   # def new
@@ -17,8 +17,7 @@ class UsersController < ApplicationController
   # end
 
   def show
-    @id = session[:current_user_id]
-    @user = User.find_by_id(session[:current_user_id])
+    @user = @current_user
     #if signed_in?
     #  render @user
     #else

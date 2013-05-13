@@ -11,43 +11,50 @@ class User
   def initialize(response)
     @email    = response["email"]
     @api_key  = response["token"]
-    @id       = response["id"]
-    #puts "API KEY: #{@api_key}"
-    #puts "RESPONSE: #{response}"
-    @first_name = response[:first_name]
-    @last_name  =  response[:last_name]
-    @npi        = response[:npi]
-    @phone      = response[:phone]
-    @degree     = response[:degree]
-    @specialty  = response[:specialty]
-    @website    = response[:website]
-    @location   = response[:location]
-    @history    = response[:history]
-    @verified   = response[:verified]
-    @avatar_url = response[:avatar_url]
+    @id       = response["uid"]
+    #are instance variables here remembered when we call User.new?
+    #yes, the API key is in the query string
+    other_attributes = User.find_by_id(@id, @api_key)
+    other = other_attributes["result"]
+    @first_name = other["first_name"]
+    @last_name  = other["last_name"]
+    @npi        = other["npi"]
+    @history    = other["history"]
+    @verified   = other["verified"]
+    @phone      = other["profile"]["phone"]
+    @degree     = other["profile"]["degree"]
+    @specialties = other["profile"]["specialties"]
+    @websites   = other["profile"]["urls"]
+    @locations   = other["profile"]["locations"]
+    @avatar_url = other["profile"]["avatar_url"]
   end
 
 #if it's a server error, will get html response back
 
   def self.login(email, password)
     response = User.post('/api/v1/tokens', :query => {:email => email, :password => password})
-    #puts "LOGIN RESPONSE: #{response}"
     user = User.new(response)
-    #puts "USER API KEY: #{@api_key}"
-    user.find_by_email(user.email, user.api_key)
+    user
+    #not storing user attributes
+  end
+
+  # def find_by_email(email, api_key)
+  #   User.get('/api/v1/users/', :query => {:email => email, :api_key => api_key})
+  # end
+  def self.find_by_id(id, api_key)
+    #can't form request string correctly with user id
+    User.get("/api/v1/users/#{id}/", :query => {:api_key => api_key})
+  end
+
+  def parse_response(response)
+    user = User.new(response)
     user
   end
-
-  def find_by_email(email, api_key)
-    User.get('/api/v1/users/activity', :query => {:email => email, :api_key => api_key})
-    #puts "FIND BY EMAIL RESPONSE: #{resp}"
-  end
-
-  def self.find_by_id(id)
-    response = User.get("/api/v1/users/7/", :query => {:api_key => api_key='E3huDzCviMVHFbiudNTm'})
-    #puts "FIND BY ID RESPONSE: #{resp}"
-    user = User.new(response)
-  end
+   
+  # def self.find_by_id(id)
+  #   response = User.get("/api/v1/users/#{id}", :query => {:api_key => api_key='EA2UvJezSsBi9d4iYhs7'})
+  #   user = User.new(response)
+  # end
 
   # def save(id, api_key, params)
   #   #TODO: look at active record method "save" for models, and make the same
