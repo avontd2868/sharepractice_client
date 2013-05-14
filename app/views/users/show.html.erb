@@ -5,15 +5,14 @@
 <div class='container'>
   <div id='user-profile'>
     <!--%= #link_to "Edit Profile", edit_user_path(@user)%-->
-    <%= "THIS IS THE ID #{@id}" %>
     
-    <h1><%= "First Name: #{@user.first_name} Last Name: #{@user.last_name}" %></h1>
-    <%= "Degree: #{@user.degree}" %>
-    <%= "Specialty: #{@user.specialty}" %>
-    <%= "Location: #{@user.location}" %>
-    <%= "Website: #{@user.website}" %>
+    <h1><%= "First Name: #{@current_user.first_name} Last Name: #{@current_user.last_name}" %></h1>
+    <%= "Degree: #{@current_user.degree}" %>
+    <%= "Specialty: #{@current_user.specialty}" %>
+    <%= "Location: #{@current_user.location}" %>
+    <%= "Website: #{@current_user.website}" %>
 
-    <%= "Email: #{@user.email} API: #{@user.api_key} ID: #{@user.id}" %>
+    <%= "Email: #{@current_user.email} API: #{@current_user.api_key} ID: #{@current_user.id}" %>
 
     <%= USERRRRRRRR @user.to_yaml %>
 

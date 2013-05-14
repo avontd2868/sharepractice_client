@@ -9,7 +9,7 @@ SpWebapp::Application.routes.draw do
   #show   =users/id
   #edit   =users/id/edit
   #update =users/id
-  #match '/signup',  to: 'users#new'
+  match '/signup',  to: 'users#new'
   match '/profile', to: 'users#show'
   #match '/profile/edit', to: 'users#edit'
 

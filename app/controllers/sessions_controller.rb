@@ -1,7 +1,5 @@
 class SessionsController < ApplicationController
-#To reset the entire session, use reset_session.
 
-# "Create" a login, aka "log the user in"
   def new
   end
 
@@ -15,7 +13,7 @@ class SessionsController < ApplicationController
       session[:current_user] = @current_user
       session[:user_id] = @current_user.id
       session[:api_key] = @current_user.api_key
-      redirect_to '/profile', notice: "Logged in!"
+      redirect_to profile_path, notice: "Logged in!"
     else
       # this is not showing, even when before filter is taken out from users controller
       flash.now.alert = "Email or password is invalid"
@@ -23,26 +21,10 @@ class SessionsController < ApplicationController
     end
   end
 
-   # "Delete" a login, aka "log the user out"
   def destroy
-    # Remove the user id from the session
-    session[:user_id] = nil
+    reset_session
     redirect_to root_url, notice: "Logged out!"
   end
-
-  # def verify_session
-  #   if
-  #     return
-  #   else 
-  #     create_session
-  #   end
-  # end
-
-    # def current_user
-  #   if cookies[:remember_token].present?
-  #     @current_user ||= User.find_by_remember_token(cookies[:remember_token])
-  #   end
-  # end
 
   # def current_user=(user)
   #   @current_user = user

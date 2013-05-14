@@ -1,35 +1,29 @@
+#1. @current_user is nil
+#2. cannot access session variables
 class UsersController < ApplicationController
   before_filter :require_login, only: [:show, :edit, :update, :destroy]
   skip_before_filter :current_user?
-  # before_filter :authenticate_user #if you dont have token
 
   # def new
-  #   @user = User.new(response)
+  #   @user = User.new_from_web(@current_user.id, @current_user.api_key, params[:user])
   # end
 
   # def create
-  #   @user = User.new()
-  #   # if @user.save
-  #   #   redirect_to @user
-  #   # end
-  #   #   render :new
-  #   # end
+  #   @user = User.new_from_web()
+  #   if @user.save
+  #     redirect_to @user
+  #   end
+  #     render :new
+  #     send user confirmation email
+  #   end
   # end
 
   def show
-    @user = @current_user
-    #if signed_in?
-    #  render @user
-    #else
-    #  redirect_to signin_path
-    #end
+    @current_user
   end
 
-  def signed_in?
-    !@current_user.nil?
-  end
   # def edit
-  #   @user 
+  #   @user = User.edit_from_web(params[:user])
   # end
 
   # def update
