@@ -42,12 +42,12 @@ class User
     User.get("/api/v1/users/#{id}/", :query => {:api_key => api_key})
   end
 
-  def self.new_from_web(id, api_key, params)
-    email            = params[:email]
-    password         = params[:password]
-    password_confirm = params[:password_confirmation]
-    User.put("/api/v1/users/#{id}", :query => {:api_key => api_key, :email => email, :password => password, :password_confirmation => password_confirm})
-  end
+  # def self.new_from_web(id, api_key, params)
+  #   email            = params[:email]
+  #   password         = params[:password]
+  #   password_confirm = params[:password_confirmation]
+  #   User.put("/api/v1/users/#{id}", :query => {:api_key => api_key, :email => email, :password => password, :password_confirmation => password_confirm})
+  # end
 
   # def self.save_changes(id, api_key, params)
   #   response = User.put("api/v1/users/#{id}/", :query => {:api_key => api_key})

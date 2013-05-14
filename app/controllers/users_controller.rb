@@ -4,9 +4,9 @@ class UsersController < ApplicationController
   before_filter :require_login, only: [:show, :edit, :update, :destroy]
   skip_before_filter :current_user?
 
-  def new
-    @user = User.new_from_web(session[:user_id], @current_user.api_key, params[:user])
-  end
+  # def new
+  #   @user = User.new_from_web(session[:user_id], @current_user.api_key, params[:user])
+  # end
 
   # def create
   #   @user = User.new_from_web()
