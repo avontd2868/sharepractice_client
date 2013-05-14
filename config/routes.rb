@@ -17,6 +17,9 @@ SpWebapp::Application.routes.draw do
   match '/login',  to: 'sessions#new'
   match '/logout', to: 'sessions#destroy'
 
+  resources :admin
+  match '/dashboard', to: 'admin#index'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

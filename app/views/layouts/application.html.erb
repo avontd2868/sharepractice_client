@@ -1,23 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-  <title>SharePractice</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<% if current_user %>
-  Logged in as <%= current_user.email %>
-  <%= link_to "Log Out", logout_path %>
-<% else %>
-  <%= link_to "Log In", login_path %>
-  <%= link_to "Sign Up", signup_path %>
-<% end %>
-<%= "CURRENT USER IS NIL?: " + current_user.nil?.to_s %>
-
-<%= yield %>
-
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:SharePractice) ? yield(:SharePractice) : "SharePractice" %></title>
+    <meta name="description" content="We Help Doctors Share the Way They Practice for Better Treatment Outcomes">
+    <meta name="author" content="SharePractice">
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <%= yield(:head) %>
+  </head>
+  <body>
+    <header class="navbar navbar-fixed-top">
+      <nav class="navbar-inner">
+        <div class="container">
+          <%= render 'layouts/navigation' %>
+        </div>
+      </nav>
+    </header>
+    <div id="main" role="main">
+      <div class="container">
+        <div class="content">
+           <div class="row">
+            <div class="span12">
+              <!--%= render 'layouts/messages' %-->
+              <%= yield %>
+            </div>
+          </div>
+          <footer>
+          </footer>
+        </div>
+      </div> <!--! end of .container -->
+    </div> <!--! end of #main -->
+  </body>
 </html>

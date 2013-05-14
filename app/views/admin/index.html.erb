@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/cms.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="shortcut icon" href="{{ STATIC_URL }}ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ STATIC_URL }}ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ STATIC_URL }}ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ STATIC_URL }}ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="{{ STATIC_URL }}ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Share Practice</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">CMS</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="span3">
+          <input id="disorder-search" type="text" class="input-medium search-query" placeholder="Search disorders…">
+        </div>
+        <div class="span3 dropdown" id="treatment-search-dropdown-container">
+          <input id="treatment-search" type="text" class="input-medium search-query hidden" placeholder="Add new treatment…">
+          <table class="table table-hover dropdown-menu" id="treatment-search-results">
+          </table>
+        </div>
+        <div class="span3">
+          <button class="btn hidden" type="button" id="add-prescription-button">+ Add Prescription</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span3 scroll">
+          <table class="table table-striped table-hover" id="disorder-search-results">
+          </table>
+        </div>
+        <div class="span3 scroll">
+          <table class="table table-striped table-hover" id="treatments">
+          </table>
+        </div>
+        <div class="span3 scroll">
+          <table class="table table-striped" id="prescriptions">
+          </table>
+        </div>
+        <div class="span3">
+          <form>
+            <table class="table table-striped" id="edit-prescription">
+            </table>
+          </form>
+        </div>
+      </div>
+
+        <input type="hidden" id="username"  name="username" value="{{ username }}">
+        <input type="hidden" id="api_key" name="api_key" value="{{ api_key }}">
+    </div> <!-- /container -->
+
+    <img src="{{ STATIC_URL}}img/ajax-loader.gif" alt="loading" id="loading-img" class="hidden" />
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{ STATIC_URL }}js/jquery-1.8.2.min.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+    <script src="{{ STATIC_URL }}js/cms.js"></script>
+
+  </body>
+</html>
