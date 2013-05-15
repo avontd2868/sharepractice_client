@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_filter :require_login, only: [:show, :edit, :update, :destroy]
   skip_before_filter :current_user?
 
+  respond_to :json
   # def new
   #   @user = User.new_from_web(session[:user_id], @current_user.api_key, params[:user])
   # end
@@ -20,6 +21,13 @@ class UsersController < ApplicationController
 
   def show
     @current_user = session[:current_user]
+  end
+
+  def search_disorder
+    @disorders = User.find_disorder(params[:q], session[:api_key])
+    respond_with(@disorders) do |format|
+      format.json
+    end
   end
 
   # def edit

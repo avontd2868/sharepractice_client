@@ -8,7 +8,7 @@ $(document).ready(function () {
         return formatted;
     };
 
-    var authParams = {'api_key':getUrlVars()["api_key"], 'username':getUrlVars()["username"]};
+    var authParams = {'api_key':getUrlVars()["api_key"]};
     var doseUnits = [
         "mg",
         "mg/kg",
@@ -640,14 +640,14 @@ $(document).ready(function () {
         $('#add-prescription-button').addClass('hidden');
 
         var params = jQuery.extend({}, authParams);
-        params['search_text'] = $(this).val();
-        lastRequest = $.getJSON('/api/v1/search/disorder/', params, function (data) {
+        params['q'] = $(this).val();
+        lastRequest = $.getJSON('/search', params, function (data) {
             lastRequest = null;
 
             var disorders = data['results'];
             var items = [];
             $.each(disorders, function (idx, disorder) {
-                items.push('<tr class="disorder-search-result-row"><td data-cui="' + disorder['cui'] + '" class="disorder-search-result">' + disorder['str'] + '</td></tr>');
+                items.push('<tr class="disorder-search-result-row"><td data-cui="' + disorder['code'] + '" class="disorder-search-result">' + disorder['label'] + '</td></tr>');
             });
 
             $('#disorder-search-results').html(items.join(''));

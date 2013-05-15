@@ -42,6 +42,10 @@ class User
     User.get("/api/v1/users/#{id}/", :query => {:api_key => api_key})
   end
 
+  def self.find_disorder(search_term, api_key)
+    User.get("/api/v1/disorders/search", :query => {:api_key => api_key, :q => search_term})
+  end
+
   # def self.new_from_web(id, api_key, params)
   #   email            = params[:email]
   #   password         = params[:password]

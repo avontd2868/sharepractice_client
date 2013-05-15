@@ -20,6 +20,8 @@ SpWebapp::Application.routes.draw do
   resources :admin
   match '/dashboard', to: 'admin#index'
 
+  match '/search', to: 'users#search_disorder'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
