@@ -4,12 +4,14 @@
 
 <div class='container'>
   <div id='user-profile'>
-    
-    <h1><%= "First Name: #{@current_user.first_name} Last Name: #{@current_user.last_name}" %></h1>
-    <%= "Degree: #{@current_user.degree}" %>
-    <%= "Specialties: #{@current_user.specialties.first}" %>
-    <%= "Locations: #{@current_user.locations.first}" %>
-    <%= "Websites: #{@current_user.websites.first}" %>
-    <%= "Email: #{@current_user.email} ID: #{@current_user.id}" %>
-  <div id='user-profile'>
-<div>
+    <ul>
+    <li><h1><%= "#{@current_user.first_name} #{@current_user.last_name}" %></h1></li>
+    <li><%= "Degree: #{@current_user.degree}" %></li>
+    <li><%= "Specialties: #{@current_user.specialties.first}" %></li>
+    <li><%= "Locations: #{@current_user.locations.first}" %></li>
+    <li><%= "Websites: #{@current_user.websites.first}" %></li>
+    <li><%= "Email: #{@current_user.email}" %></li>
+    <li><%= "ID: #{@current_user.id}" %></li>
+    </ul>
+  </div id='user-profile'>
+</div>
