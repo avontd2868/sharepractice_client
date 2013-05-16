@@ -2,7 +2,7 @@ SpWebapp::Application.routes.draw do
 
   root :to => 'sessions#new'
   
-  resources :users, only: [:new, :create, :show, :edit, :update]
+  resources :users
   #defaults paths:
   #new    =users/new
   #create =users
@@ -12,6 +12,9 @@ SpWebapp::Application.routes.draw do
   match '/signup',  to: 'users#new'
   match '/profile', to: 'users#show'
   #match '/profile/edit', to: 'users#edit'
+  match '/search/disorders', to: 'users#search_disorders'
+  match '/disorders/:cui', to: 'users#find_a_disorder'
+  match '/search/treatments', to: 'users#search_treatments'
 
   resources :sessions, only: [:new, :create, :destroy]
   match '/login',  to: 'sessions#new'
@@ -19,8 +22,6 @@ SpWebapp::Application.routes.draw do
 
   resources :admin
   match '/dashboard', to: 'admin#index'
-
-  match '/search', to: 'users#search_disorder'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -512,18 +512,21 @@ $(document).ready(function () {
             disorderCui = $(this).data('cui');
 
             var params = jQuery.extend({}, authParams);
-            lastRequest = $.getJSON('/api/v1/disorder/' + disorderCui + '/', params, function (data) {
+            lastRequest = $.getJSON('/disorders/' + disorderCui + '/', params, function (data) {
                 lastRequest = null;
 
                 $(".loading").remove();
 
-                var treatments = data['treatments'];
+                var results = data['results'];
+                var definition = results['definition'];
+                var treatments = results['treatments'];
 
                 var items = [];
                 $.each(treatments, function (idx, treatment) {
                     items.push('<tr class="treatment-row"><td data-cui="' + treatment['rx_cui'] + '" class="treatment">' + treatment['name'] + '</td></tr>');
                 });
 
+                $('#disorder-definition').html(definition);
                 $('#treatments').html(items.join(''));
                 $('#treatment-search').removeClass('hidden');
 
@@ -641,7 +644,7 @@ $(document).ready(function () {
 
         var params = jQuery.extend({}, authParams);
         params['q'] = $(this).val();
-        lastRequest = $.getJSON('/search', params, function (data) {
+        lastRequest = $.getJSON('/search/disorders', params, function (data) {
             lastRequest = null;
 
             var disorders = data['results'];

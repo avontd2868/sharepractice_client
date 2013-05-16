@@ -23,9 +23,23 @@ class UsersController < ApplicationController
     @current_user = session[:current_user]
   end
 
-  def search_disorder
-    @disorders = User.find_disorder(params[:q], session[:api_key])
-    respond_with(@disorders) do |format|
+  def search_disorders
+    @disorders = User.find_disorders(params[:q], session[:api_key])
+    respond_with_json(@disorders)
+  end
+
+  def find_a_disorder
+    @disorder = User.find_a_disorder(params[:cui], session[:api_key])
+    respond_with_json(@disorder)
+  end
+
+  def search_treatments
+    @treatments = User.find_treatments(params[:q], session[:api_key])
+    respond_with_json(@treatments)
+  end
+
+  def respond_with_json(response)
+    respond_with(response) do |format|
       format.json
     end
   end

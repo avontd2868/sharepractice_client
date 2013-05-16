@@ -42,10 +42,23 @@ class User
     User.get("/api/v1/users/#{id}/", :query => {:api_key => api_key})
   end
 
-  def self.find_disorder(search_term, api_key)
+  def self.find_disorders(search_term, api_key)
     User.get("/api/v1/disorders/search", :query => {:api_key => api_key, :q => search_term})
   end
 
+  def self.find_a_disorder(code, api_key)
+    User.get("/api/v1/disorders/#{code}", :query => {:api_key => api_key})
+  end
+
+  def self.find_treatments(search_term, api_key)
+    User.get("/api/v1/treatments/search", :query => {:api_key => api_key, :q => search_term})
+  end
+
+  # def self.get_user(id, api_key)
+  #   response = User.find_by_id(id, api_key)
+  #   user = User.new(response)
+  #   user
+  # end
   # def self.new_from_web(id, api_key, params)
   #   email            = params[:email]
   #   password         = params[:password]
