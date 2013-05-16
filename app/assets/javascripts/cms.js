@@ -443,7 +443,7 @@ $(document).ready(function () {
             $('#treatment-search-dropdown-container').removeClass('open');
 
 
-            $('#treatments').prepend('<tr class="treatment-row"><td data-cui="' + $(this).data('cui') + '" class="treatment">' + $(this).html() + '</td></tr>');
+            $('#treatments').append('<tr class="treatment-row"><td data-cui="' + $(this).data('cui') + '" class="treatment">' + $(this).html() + '</td></tr>');
             setupPrescription();
         });
     };
@@ -471,14 +471,14 @@ $(document).ready(function () {
             $('#treatment-search-dropdown-container').removeClass('open');
         } else {
             var params = jQuery.extend({}, authParams);
-            params['search_text'] = $(this).val();
-            lastRequest = $.getJSON('/api/v1/search/treatment/', params, function (data) {
+            params['q'] = $(this).val();
+            lastRequest = $.getJSON('/treatments/search', params, function (data) {
                 lastRequest = null;
 
                 var treatments = data['results'];
                 var items = [];
                 $.each(treatments, function (idx, treatment) {
-                    items.push('<tr><td data-cui="' + treatment['cui'] + '" class="treatment-search-result">' + treatment['str'] + '</td></tr>');
+                    items.push('<tr><td data-cui="' + treatment['code'] + '" class="treatment-search-result">' + treatment['label'] + '</td></tr>');
                 });
 
                 $('#treatment-search-results').html(items.join(''));

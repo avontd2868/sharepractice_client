@@ -14,7 +14,7 @@ SpWebapp::Application.routes.draw do
   #match '/profile/edit', to: 'users#edit'
   match '/search/disorders', to: 'users#search_disorders'
   match '/disorders/:cui', to: 'users#find_a_disorder'
-  match '/search/treatments', to: 'users#search_treatments'
+  match '/treatments/search', to: 'users#search_treatments'
 
   resources :sessions, only: [:new, :create, :destroy]
   match '/login',  to: 'sessions#new'
