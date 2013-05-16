@@ -517,22 +517,10 @@ $(document).ready(function () {
 
                 $(".loading").remove();
 
-                //var results = data['results'][0];
-                var results = { "dx_code": "SP6Urinarytractinfect0",
-                                  "name": "Urinary tract infection",
-                                  "definition": "A bacterial infectious process affecting any part of the urinary tract, most commonly the bladder and the urethra. Symptoms include urinary urgency and frequency, burning sensation during urination, lower abdominal discomfort, and cloudy urine.",
-                                  "codes": {
-                                      "ICD9CM": "599.0",
-                                      "UMLS": "C0042029"
-                                  },
-                                  "resource_uri": [],
-                                  "treatments": [{'name': 'treatment 1', 'rx_cui': '1234'}, {'name': 'treatment 2', 'rx_cui': '134'}, {'name': 'treatment 3', 'rx_cui': '14'}],
-                                  "treatment_count": 0
-                              };
-                
+                var results = data['results'][0];
                 var definition = results['definition'];
-                //var treatments = [{'name': 'treatment 1', 'rx_cui': '1234'}, {'name': 'treatment 2', 'rx_cui': '134'}, {'name': 'treatment 3', 'rx_cui': '14'}];
                 var treatments = results['treatments'];
+                
                 var items = [];
                 items.push('<tr class="treatment-row"><td>Definition: ' + results['definition'] + '</td></tr>');
                 $.each(treatments, function (idx, treatment) {
