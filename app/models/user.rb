@@ -54,6 +54,14 @@ class User
     User.get("/api/v1/treatments/search", :query => {:api_key => api_key, :q => search_term})
   end
 
+  def self.find_prescriptions(disorder_code, api_key)
+    User.get("/api/v1/prescriptions/#{disorder_code}", :query => {:api_key => api_key})
+  end
+
+  def self.new_prescription(params, api_key)
+    User.post("/api/v1/prescriptions", :query => {:params => params, :api_key => api_key})
+  end
+
   # def self.get_user(id, api_key)
   #   response = User.find_by_id(id, api_key)
   #   user = User.new(response)

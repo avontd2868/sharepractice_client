@@ -12,9 +12,11 @@ SpWebapp::Application.routes.draw do
   match '/signup',  to: 'users#new'
   match '/profile', to: 'users#show'
   #match '/profile/edit', to: 'users#edit'
-  match '/search/disorders', to: 'users#search_disorders'
+  match '/disorders/search', to: 'users#search_disorders'
   match '/disorders/:cui', to: 'users#find_a_disorder'
   match '/treatments/search', to: 'users#search_treatments'
+  match '/prescriptions/:cui', to: 'users#find_prescriptions_for_disorder'
+  match '/prescriptions', to: 'users#add_prescription'
 
   resources :sessions, only: [:new, :create, :destroy]
   match '/login',  to: 'sessions#new'

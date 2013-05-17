@@ -305,10 +305,13 @@ $(document).ready(function () {
                 params['duration'] = elem.find('.duration-input').val();
                 params['duration_unit'] = elem.find('.duration-label-input').val();
                 params['route'] = elem.find('.route-label-input').val();
-                params['disorder_cui'] = disorderCui;
+                params['dx_code'] = disorderCui;
                 params['note'] = $('#prescription-note').val();
 
-                $.post('/api/v1/signatures/add/', params, function (data) {
+JSON.stringify(value[, replacer [, space]])
+
+                $.post('/prescriptions/', params, function (data) {
+                    data = JSON.stringify(data)
                     prescriptionId = data['prescription_id'];
                     if (idx + 1 == $('.edit-prescription-cell').length) {
                         $(".loading").remove();
@@ -420,11 +423,11 @@ $(document).ready(function () {
             } else {
                 $(this).append($("#loading-img").clone().removeClass("hidden").attr("id", null).addClass("loading"));
                 var params = jQuery.extend({}, authParams);
-                params['disorder_cui'] = disorderCui;
-                lastRequest = $.getJSON('/api/v1/prescription/get/', params, function (data) {
+
+                lastRequest = $.getJSON('/prescriptions/' + disorderCui + '/', params, function (data) {
                     lastRequest = null;
                     $(".loading").remove();
-                    var prescriptions = data['prescription'];
+                    var prescriptions = data['results'];
                     cachePrescriptions = prescriptions;
 
                     handlePrescriptions(prescriptions);
@@ -644,7 +647,7 @@ $(document).ready(function () {
 
         var params = jQuery.extend({}, authParams);
         params['q'] = $(this).val();
-        lastRequest = $.getJSON('/search/disorders', params, function (data) {
+        lastRequest = $.getJSON('/disorders/search', params, function (data) {
             lastRequest = null;
 
             var disorders = data['results'];

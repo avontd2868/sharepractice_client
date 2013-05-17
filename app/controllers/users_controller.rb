@@ -38,11 +38,22 @@ class UsersController < ApplicationController
     respond_with_json(@treatments)
   end
 
+  def find_prescriptions_for_disorder
+    @prescriptions = User.find_prescriptions(params[:cui], session[:api_key])
+    respond_with_json(@prescriptions)
+  end
+
+  def add_prescription
+    @new_prescription = User.new_prescription(params, session[:api_key])
+    respond_with_json(@new_prescription)
+  end
+
   def respond_with_json(response)
     respond_with(response) do |format|
       format.json
     end
   end
+
 
   # def edit
   #   @user = User.edit_from_web(params[:user])
