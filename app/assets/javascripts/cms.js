@@ -280,7 +280,36 @@ $(document).ready(function () {
         });
     };
 
-    var newSignatureRow = '<tr class="edit-prescription-row"><td class="edit-prescription-cell"><button class="close remove-signature">&times;</button><label>Treatment name</label><div class="dropdown"><input type="text" class="edit-treatment-search"><table class="table table-hover dropdown-menu edit-treatment-search-results"></table></div><label>Dose</label><div class="control-group"><div class="controls"><div class="dropdown"><input type="text" class="span1 dose-input"><input type="text" class="span1 dose-high-input"><input type="text" class="span2 dose-label-input" value="mg"><table class="table table-hover dropdown-menu"></table></div></div></div><label>Frequency</label><div class="control-group"><div class="controls"><div class="dropdown"><input type="text" class="span1 frequency-input"><input type="text" class="span2 frequency-label-input" value="x/day"><table class="table table-hover dropdown-menu"></table></div></div></div><label>Duration</label><div class="control-group"><div class="controls"><div class="dropdown"><input type="text" class="span1 duration-input"><input type="text" class="span2 duration-label-input" value="days"><label>Route</label><input type="text" class="span2 route-label-input" value="ORALE"><table class="table table-hover dropdown-menu"></table></div></div></div></td></tr>';
+    var newSignatureRow = '<tr class="edit-prescription-row">'+
+                          '<td class="edit-prescription-cell">'+
+                          '<button class="close remove-signature">&times;</button>'+
+                          '<label>Treatment name</label>'+
+                          '<div class="dropdown"><input type="text" class="edit-treatment-search">'+
+                          '<table class="table table-hover dropdown-menu edit-treatment-search-results"></table>'+
+                          '</div>'+
+                          '<label>Dose</label>'+
+                          '<div class="control-group"><div class="controls"><div class="dropdown">'+
+                          '<input type="text" class="span1 dose-input">'+
+                          '<input type="text" class="span1 dose-high-input">'+
+                          '<input type="text" class="span2 dose-label-input" value="mg">'+
+                          '<table class="table table-hover dropdown-menu"></table>'+
+                          '</div></div></div>'+
+                          '<label>Frequency</label>'+
+                          '<div class="control-group"><div class="controls"><div class="dropdown">'+
+                          '<input type="text" class="span1 frequency-input">'+
+                          '<input type="text" class="span1 frequency-high-input">'+
+                          '<input type="text" class="span2 frequency-label-input" value="x/day">'+
+                          '<table class="table table-hover dropdown-menu"></table>'+
+                          '</div></div></div>'+
+                          '<label>Duration</label>'+
+                          '<div class="control-group"><div class="controls"><div class="dropdown">'+
+                          '<input type="text" class="span1 duration-input">'+
+                          '<input type="text" class="span1 duration-high-input">'+
+                          '<input type="text" class="span2 duration-label-input" value="days">'+
+                          '<label>Route</label>'+
+                          '<input type="text" class="span2 route-label-input" value="ORALE">'+
+                          '<table class="table table-hover dropdown-menu"></table>'+
+                          '</div></div></div></td></tr>';
 
     var setupEditPrescriptionActions = function () {
         $('#combine-with-button').click(function () {
@@ -297,21 +326,21 @@ $(document).ready(function () {
                 }
                 params['rx_cui'] = elem.find('.edit-treatment-search').data('cui');
                 params['rx_name'] = elem.find('.edit-treatment-search').val();
+                params['rx_id'] = "";
                 params['dose'] = elem.find('.dose-input').val();
                 params['dose_high'] = elem.find('.dose-high-input').val();
                 params['dose_unit'] = elem.find('.dose-label-input').val();
                 params['frequency'] = elem.find('.frequency-input').val();
+                params['frequency_high'] = elem.find('.frequency-high-input').val();
                 params['frequency_unit'] = elem.find('.frequency-label-input').val();
                 params['duration'] = elem.find('.duration-input').val();
+                params['duration_high'] = elem.find('.duration-high-input').val();
                 params['duration_unit'] = elem.find('.duration-label-input').val();
                 params['route'] = elem.find('.route-label-input').val();
                 params['dx_code'] = disorderCui;
                 params['note'] = $('#prescription-note').val();
 
-JSON.stringify(value[, replacer [, space]])
-
                 $.post('/prescriptions/', params, function (data) {
-                    data = JSON.stringify(data)
                     prescriptionId = data['prescription_id'];
                     if (idx + 1 == $('.edit-prescription-cell').length) {
                         $(".loading").remove();
@@ -354,7 +383,13 @@ JSON.stringify(value[, replacer [, space]])
 
     $('#add-prescription-button').click(function () {
         $('.prescription-row').removeClass('info');
-        $('#edit-prescription').html(newSignatureRow + '<tr id="edit-submit-tray"><td>Note: <textarea style="height:100%;" id="prescription-note"></textarea></td><td><button class="btn" style="margin-top: 20px;" type="button" id="combine-with-button">+ combine with</button><button class="btn btn-primary" type="button" id="save-changes">Save changes</button></td></tr>');
+        $('#edit-prescription').html(newSignatureRow +
+                                '<tr id="edit-submit-tray">' +
+                                '<td>Note: <textarea style="height:100%;" id="prescription-note"></textarea></td>' +
+                                '<td><button class="btn" style="margin-top: 20px;" ' +
+                                    'type="button" id="combine-with-button">+ combine with</button>' +
+                                    '<button class="btn btn-primary" type="button" id="save-changes">Save changes</button></td>' +
+                                '</tr>');
         setupEditPrescriptionActions();
         setupEditTreatmentSearch();
         $('.edit-treatment-search').data('cui', $('.treatment-row.info').children().data('cui'));
@@ -556,12 +591,14 @@ JSON.stringify(value[, replacer [, space]])
                                             '<input type="text" class="span1 dose-high-input" value="{2}">' +
                                             '<input type="text" class="span2 dose-label-input" value="{3}"><div class="control-group"><div class="controls"><div class="dropdown">' +
                                             '<input type="text" class="span1 frequency-input"  value="{4}">' +
-                                            '<input type="text" class="span2 frequency-label-input" value="{5}"><table class="table table-hover dropdown-menu">' +
+                                            '<input type="text" class="span1 frequency-high-input"  value="{5}">' +
+                                            '<input type="text" class="span2 frequency-label-input" value="{6}"><table class="table table-hover dropdown-menu">' +
                                             '</table></div></div></div><label>Duration</label><div class="control-group"><div class="controls"><div class="dropdown">' +
-                                            '<input type="text" class="span1 duration-input" value="{6}">' +
-                                            '<input type="text" class="span2 duration-label-input" value="days" value="{7}">' +
+                                            '<input type="text" class="span1 duration-input" value="{7}">' +
+                                            '<input type="text" class="span1 duration-high-input" value="{8}">' +
+                                            '<input type="text" class="span2 duration-label-input" value="days" value="{9}">' +
                                             '<label>Route</label>' +
-                                            '<input type="text" class="span2 route-label-input" value="{8}">' +
+                                            '<input type="text" class="span2 route-label-input" value="{10}">' +
                                             '<table class="table table-hover dropdown-menu"></table></div></div></div></td></tr>';
 
                                         var rx_name = signature['rx_name'];

@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  #protect_from_forgery
   # Filters are methods that are run before, after or “around” a controller action.
   # Filters are inherited, so if you set a filter on ApplicationController, it will be run on every controller in your application.
  

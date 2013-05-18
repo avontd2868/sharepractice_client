@@ -59,7 +59,23 @@ class User
   end
 
   def self.new_prescription(params, api_key)
-    User.post("/api/v1/prescriptions", :query => {:params => params, :api_key => api_key})
+    puts "api_key : #{api_key}"
+    User.post("/api/v1/prescriptions", :query => {:rx_code => params[:rx_cui],
+                                                  :rx_name => params[:rx_name],
+                                                  :rx_id => params[:rx_id],
+                                                  :dose => params[:dose],
+                                                  :dose_high => params[:dose_high],
+                                                  :dose_unit => params[:dose_unit],
+                                                  :frequency => params[:frequency],
+                                                  :frequency_high => params[:frequency_high],
+                                                  :frequency_unit => params[:frequency_unit],
+                                                  :duration => params[:duration],
+                                                  :duration_high => params[:duration_high],
+                                                  :duration_unit => params[:duration_unit],
+                                                  :route => params[:route],
+                                                  :dx_code => params[:dx_code],
+                                                  :note => params[:note],
+                                                  :api_key => api_key})
   end
 
   # def self.get_user(id, api_key)

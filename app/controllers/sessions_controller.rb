@@ -5,9 +5,8 @@ class SessionsController < ApplicationController
 
   def create
     @current_user = User.login(params[:email], params[:password])
+    #if the user can be found, and the password is correct, it should return a User instance
 
-    #if the user can be found, and the password is correct, it will return a User instance
-    puts "USER ID IS NIL? #{@current_user.to_yaml}" #when correct login credentials used, there is email and authenticity token stored, but no other user attributes
     unless @current_user.nil?
       # Save the user ID in the session so it can be used in subsequent requests
       session[:current_user] = @current_user
@@ -22,7 +21,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    reset_session
+    session.delete(:current_user)
+    session.delete(:user_id)
+    session.delete(:api_key)
     redirect_to root_url, notice: "Logged out!"
   end
 
