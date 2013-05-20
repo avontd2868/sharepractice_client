@@ -262,14 +262,14 @@ $(document).ready(function () {
             } else {
                 $(this).parent().addClass('open');
                 var params = jQuery.extend({}, authParams);
-                params['search_text'] = $(this).val();
-                lastRequest = $.getJSON('/api/v1/search/treatment/', params, function (data) {
+                params['q'] = $(this).val();
+                lastRequest = $.getJSON('/treatments/search', params, function (data) {
                     lastRequest = null;
 
                     var treatments = data['results'];
                     var items = [];
                     $.each(treatments, function (idx, treatment) {
-                        items.push('<tr><td data-cui="' + treatment['cui'] + '" class="edit-treatment-search-result">' + treatment['str'] + '</td></tr>');
+                        items.push('<tr><td data-cui="' + treatment['code'] + '" class="edit-treatment-search-result">' + treatment['label'] + '</td></tr>');
                     });
 
                     searchResultsTable.html(items.join(''));
@@ -317,16 +317,16 @@ $(document).ready(function () {
             setupEditTreatmentSearch();
         });
         $('#save-changes').click(function () {
-            var prescriptionId = null;
+            var prescriptionId = '';
             $(this).after($("#loading-img").clone().removeClass("hidden").attr("id", null).addClass("loading"));
             var doSubmit = function (idx, elem) {
                 var params = jQuery.extend({}, authParams);
+
                 if (prescriptionId) {
-                    params['prescription_id'] = prescriptionId;
+                    params['rx_id'] = prescriptionId;
                 }
                 params['rx_cui'] = elem.find('.edit-treatment-search').data('cui');
                 params['rx_name'] = elem.find('.edit-treatment-search').val();
-                params['rx_id'] = "";
                 params['dose'] = elem.find('.dose-input').val();
                 params['dose_high'] = elem.find('.dose-high-input').val();
                 params['dose_unit'] = elem.find('.dose-label-input').val();
@@ -341,7 +341,8 @@ $(document).ready(function () {
                 params['note'] = $('#prescription-note').val();
 
                 $.post('/prescriptions/', params, function (data) {
-                    prescriptionId = data['prescription_id'];
+                    results = data['results'];
+                    prescriptionId = results['id'];
                     if (idx + 1 == $('.edit-prescription-cell').length) {
                         $(".loading").remove();
                         cachePrescriptions = null;
