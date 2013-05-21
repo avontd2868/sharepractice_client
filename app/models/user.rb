@@ -2,7 +2,7 @@ require 'httparty'
 
 class User 
   include HTTParty
-  base_uri 'localhost:3000'
+  base_uri 'staging.sharepractice.com'
   default_params :format => 'json'
   format :json
 

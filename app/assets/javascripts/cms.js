@@ -417,10 +417,10 @@ $(document).ready(function () {
                 $('#add-prescription-button').removeClass('hidden');
                 var items = [];
                 $.each(prescriptions, function (idx, prescription) {
-                    $.each(prescription['signatures'], function (idx, signature) {
+                    $.each(prescription['sigs'], function (idx, signature) {
                         if (signature['rx_cui'] === treatmentCui) {
                             var item = "";
-                            $.each(prescription['signatures'], function (idx, signature) {
+                            $.each(prescription['sigs'], function (idx, signature) {
 
 
                                 var freq = signature['frequency']
@@ -563,7 +563,7 @@ $(document).ready(function () {
                 var items = [];
                 items.push('<tr class="treatment-row"><td>Definition: ' + results['definition'] + '</td></tr>');
                 $.each(treatments, function (idx, treatment) {
-                    items.push('<tr class="treatment-row"><td data-cui="' + treatment['rx_cui'] + '" class="treatment">' + treatment['name'] + '</td></tr>');
+                    items.push('<tr class="treatment-row"><td data-cui="' + treatment['rx_code'] + '" class="treatment">' + treatment['name'] + '</td></tr>');
                 });
 
                 $('#treatments').html(items.join(''));
@@ -580,10 +580,10 @@ $(document).ready(function () {
                     $.each(prescriptions, function (idx, prescription) {
 
                         if (prescription['id'] == id) {
-                            $.each(prescription['signatures'], function (idx, signature) {
-                                if (signature['rx_cui'] === treatmentCui) {
+                            $.each(prescription['sigs'], function (idx, signature) {
+                                if (signature['rx_code'] === treatmentCui) {
                                     var item = "";
-                                    $.each(prescription['signatures'], function (idx, signature) {
+                                    //$.each(prescription['sigs'], function (idx, signature) {
                                         var signa = '<tr class="edit-prescription-row"><td class="edit-prescription-cell"><button class="close remove-signature">&times;</button>' +
                                             '<label>Treatment name</label><div class="dropdown">' +
                                             '<input type="text" class="edit-treatment-search" value="{0}"><table class="table table-hover dropdown-menu edit-treatment-search-results">' +
@@ -602,7 +602,7 @@ $(document).ready(function () {
                                             '<input type="text" class="span2 route-label-input" value="{10}">' +
                                             '<table class="table table-hover dropdown-menu"></table></div></div></div></td></tr>';
 
-                                        var rx_name = signature['rx_name'];
+                                        var rx_name = signature['name'];
                                         if (rx_name == null)
                                             rx_name = "";
                                         var dose = signature['dose']
@@ -611,18 +611,24 @@ $(document).ready(function () {
                                         var dose_high = signature['dose_high']
                                         if (dose_high == null)
                                             dose_high = "";
-                                        var dose_unit = signature['dose_unit_label']
+                                        var dose_unit = signature['dose_unit']
                                         if (dose_unit == null)
                                             dose_unit = "";
                                         var freq = signature['frequency']
                                         if (freq == null)
                                             freq = "";
+                                        var freq_high = signature['frequency_high']
+                                        if (freq_high == null)
+                                            freq_high = "";
                                         var fu = signature['frequency_unit']
                                         if (fu == null)
                                             fu = "";
                                         var d = signature['duration']
                                         if (d == null)
                                             d = "";
+                                        var dur_high = signature['duration_high']
+                                        if (dur_high == null)
+                                            dur_high = "";
                                         var du = signature['duration_unit']
                                         if (du == null)
                                             du = "";
@@ -630,8 +636,8 @@ $(document).ready(function () {
                                         if (r == null)
                                             r = "";
 
-                                        item = signa.format(rx_name, dose, dose_high, dose_unit, freq, fu, d, du, r)
-                                    });
+                                        item = signa.format(rx_name, dose, dose_high, dose_unit, freq, freq_high, fu, d, dur_high, du, r)
+                                    ;
                                     item = '<tr class="edit-prescription-row"><td class="prescription" data-id="' + prescription['id'] + '">' + item + '</td></td>';
                                     items.push(item);
                                 }
@@ -646,20 +652,20 @@ $(document).ready(function () {
                 $('.prescription-row').removeClass('info');
                 $(this).parent().addClass('info');
 
-                if (cachePrescriptions) {
-                    handlePrescriptions(cachePrescriptions, $(this).data('id'));
-                } else {
+                // if (cachePrescriptions) {
+                //     handlePrescriptions(cachePrescriptions, $(this).data('cui'));
+                // } else {
                     $(this).append($("#loading-img").clone().removeClass("hidden").attr("id", null).addClass("loading"));
                     var params = jQuery.extend({}, authParams);
-                    params['disorder_cui'] = disorderCui;
+                    //params['cui'] = disorderCui;
                     lastRequest = $.getJSON('/api/v1/prescription/get/', params, function (data) {
                         lastRequest = null;
                         $(".loading").remove();
                         var prescriptions = data['prescription'];
                         cachePrescriptions = prescriptions;
 
-                        handlePrescriptions(prescriptions, $(this).data('id'));
-                    });
+                        handlePrescriptions(prescriptions, $(this).data('cui'));
+                    );
                 }
 
 //              setupEditPrescriptionActions();
