@@ -1,6 +1,9 @@
 class SessionsController < ApplicationController
-
+  
   def new
+    if current_user?
+      redirect_to dashboard_path
+    end
   end
 
   def create
@@ -12,7 +15,7 @@ class SessionsController < ApplicationController
       session[:current_user] = @current_user
       session[:user_id] = @current_user.id
       session[:api_key] = @current_user.api_key
-      redirect_to profile_path, notice: "Logged in!"
+      redirect_to dashboard_path, notice: "Logged in!"
     else
       # this is not showing, even when before filter is taken out from users controller
       flash.now.alert = "Email or password is invalid"

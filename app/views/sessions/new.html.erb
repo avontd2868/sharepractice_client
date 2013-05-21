@@ -1,19 +1,15 @@
 <div id="navbar-inner">
-  <h1>Log In</h1>
+  <h2>Log In</h2>
 </div>
 
 <div class='container'>
   <%= form_tag sessions_path do %>
     <div class="field">
-      <%= label_tag :email %><br />
+      <%= label_tag :email %>
       <%= text_field_tag :email, params[:email] %>
-    </div>
-    <div class="field">
-      <%= label_tag :password %><br />
+      <%= label_tag :password %>
       <%= password_field_tag :password %>
     </div>
     <div class="actions"><%= submit_tag "Log In" %></div>
   <% end %>
-
-  <p>New user? <%= link_to "Sign up now!", signup_path %></p>
 </div>

@@ -15,8 +15,7 @@ class ApplicationController < ActionController::Base
   # logging out removes it.
 
   def current_user?
-    puts "CURRENT USER EXISTS?: #{!@current_user.nil?}"
-    !@current_user.nil?
+    !current_user.nil?
   end
 
   def require_login

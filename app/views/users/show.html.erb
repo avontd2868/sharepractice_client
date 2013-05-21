@@ -1,12 +1,13 @@
 <div id="navbar-inner">
-  <h1>My Profile</h1>
+  <h2>My Profile</h2>
+  <h4>Logged in as...<%= "#{@current_user.first_name} #{@current_user.last_name}" %></h4>
 </div>
 
 <div class='container'>
   <div id='user-profile'>
-    <ul>
-    <li><h1><%= "#{@current_user.first_name} #{@current_user.last_name}" %></h1></li>
-    <li><%= "ID: #{@current_user.id}" %></li>
-    </ul>
+    <p></p>
+    <p>First Name: <%= @current_user.first_name %></p>
+    <p>Last Name: <%= @current_user.last_name %></p>
+    <p>Email: <%= @current_user.email %></p>
   </div>
 </div>
