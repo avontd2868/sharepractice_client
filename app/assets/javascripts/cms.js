@@ -346,6 +346,7 @@ $(document).ready(function () {
                     if (idx + 1 == $('.edit-prescription-cell').length) {
                         $(".loading").remove();
                         cachePrescriptions = null;
+                        $('.disorder-search-result').find('.disorder').click();
                         $('.treatment-row.info').find('.treatment').click();
                     } else {
                         doSubmit(idx + 1, elem.parent().next().children());
@@ -654,19 +655,20 @@ $(document).ready(function () {
 
                  if (cachePrescriptions) {
                      handlePrescriptions(cachePrescriptions, $(this).data('cui'));
-                 } else {
-                    $(this).append($("#loading-img").clone().removeClass("hidden").attr("id", null).addClass("loading"));
-                    var params = jQuery.extend({}, authParams);
-                    //params['cui'] = disorderCui;
-                    lastRequest = $.getJSON('/api/v1/prescription/get/', params, function (data) {
-                        lastRequest = null;
-                        $(".loading").remove();
-                        var prescriptions = data['prescription'];
-                        cachePrescriptions = prescriptions;
+                 }
+                //  else {
+                //     $(this).append($("#loading-img").clone().removeClass("hidden").attr("id", null).addClass("loading"));
+                //     var params = jQuery.extend({}, authParams);
+                //     //params['cui'] = disorderCui;
+                //     lastRequest = $.getJSON('/api/v1/prescription/get/', params, function (data) {
+                //         lastRequest = null;
+                //         $(".loading").remove();
+                //         var prescriptions = data['prescription'];
+                //         cachePrescriptions = prescriptions;
 
-                        handlePrescriptions(prescriptions, $(this).data('cui'))
-                    });
-                }
+                //         handlePrescriptions(prescriptions, $(this).data('cui'))
+                //     });
+                // }
 
               setupEditPrescriptionActions();
               setupEditTreatmentSearch();
