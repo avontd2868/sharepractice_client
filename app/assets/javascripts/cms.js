@@ -342,7 +342,7 @@ $(document).ready(function () {
 
                 $.post('/prescriptions/', params, function (data) {
                     results = data['results'];
-                    prescriptionId = results['id'];
+                    prescriptionId = results[0]['id'];
                     if (idx + 1 == $('.edit-prescription-cell').length) {
                         $(".loading").remove();
                         cachePrescriptions = null;
@@ -418,7 +418,7 @@ $(document).ready(function () {
                 var items = [];
                 $.each(prescriptions, function (idx, prescription) {
                     $.each(prescription['sigs'], function (idx, signature) {
-                        if (signature['rx_cui'] === treatmentCui) {
+                        if (signature['rx_code'] === treatmentCui) {
                             var item = "";
                             $.each(prescription['sigs'], function (idx, signature) {
 
@@ -432,9 +432,9 @@ $(document).ready(function () {
                                     duration = "";
 
                                 if (signature['dose_high'] == null)
-                                    item += "<p><strong>" + signature['rx_name'] + "</strong></p><p>" + signature['dose'] + " " + signature['dose_unit_label'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit']
+                                    item += "<p><strong>" + signature['name'] + "</strong></p><p>" + signature['dose'] + " " + signature['dose_unit'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit']
                                 else
-                                    item += "<p><strong>" + signature['rx_name'] + "</strong></p><p>" + signature['dose'] + "-" + signature['dose_high'] + " " + signature['dose_unit_label'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit'] + " " + "</p>";
+                                    item += "<p><strong>" + signature['name'] + "</strong></p><p>" + signature['dose'] + "-" + signature['dose_high'] + " " + signature['dose_unit'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit'] + " " + "</p>";
 
                                 if (prescription['note'] != null)
                                     item += "<br/>" + prescription['note']
@@ -652,9 +652,9 @@ $(document).ready(function () {
                 $('.prescription-row').removeClass('info');
                 $(this).parent().addClass('info');
 
-                // if (cachePrescriptions) {
-                //     handlePrescriptions(cachePrescriptions, $(this).data('cui'));
-                // } else {
+                 if (cachePrescriptions) {
+                     handlePrescriptions(cachePrescriptions, $(this).data('cui'));
+                 } else {
                     $(this).append($("#loading-img").clone().removeClass("hidden").attr("id", null).addClass("loading"));
                     var params = jQuery.extend({}, authParams);
                     //params['cui'] = disorderCui;
@@ -664,14 +664,14 @@ $(document).ready(function () {
                         var prescriptions = data['prescription'];
                         cachePrescriptions = prescriptions;
 
-                        handlePrescriptions(prescriptions, $(this).data('cui'));
-                    );
+                        handlePrescriptions(prescriptions, $(this).data('cui'))
+                    });
                 }
 
-//              setupEditPrescriptionActions();
-//              setupEditTreatmentSearch();
-//              $('.edit-treatment-search').data('cui', $('.treatment-row.info').children().data('cui'));
-//              $('.edit-treatment-search').val($('.treatment-row.info').children().text());
+              setupEditPrescriptionActions();
+              setupEditTreatmentSearch();
+              $('.edit-treatment-search').data('cui', $('.treatment-row.info').children().data('cui'));
+              $('.edit-treatment-search').val($('.treatment-row.info').children().text());
             }
         );
     };
