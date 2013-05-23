@@ -88,11 +88,11 @@ class Disorder
 end
 
 #response = Disorder.create('new treatment')
-disorder = Disorder.new('/disorder')
-response = disorder.create('sample test disorder name')
+# disorder = Disorder.new('/disorder')
+# response = disorder.create('sample test disorder name')
 #response = disorder.delete(210185)
-response = disorder.find(210185)
-puts response
+# response = disorder.find(210185)
+# puts response
 #response.response.docs.each do |disorder|
 #   disorder.id #210304
 #   disorder.code #"SP6Cervicocranialsynd0"

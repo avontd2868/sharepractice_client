@@ -51,6 +51,8 @@ class UsersController < ApplicationController
     respond_with(@new_prescription, :location => nil)
   end
 
+  private
+
   def respond_with_json(response)
     respond_with(response) do |format|
       format.json
