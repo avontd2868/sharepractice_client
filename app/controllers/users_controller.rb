@@ -1,5 +1,3 @@
-#1. @current_user is nil
-#2. cannot access session variables
 class UsersController < ApplicationController
   before_filter :require_login, only: [:show, :edit, :update, :destroy]
   skip_before_filter :current_user?
