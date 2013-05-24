@@ -18,6 +18,12 @@ SpWebapp::Application.routes.draw do
   match '/prescriptions/:cui', to: 'users#find_prescriptions_for_disorder'
   match '/prescriptions', to: 'users#add_prescription'
 
+  resources :disorders
+  # match 'disorders/new', to: 'disorders#new'
+  # match 'disorders/show/:id', to: 'disorders#show'
+  # match 'disorders/destroy', to: 'disorders#destroy'
+  #the above aren't necessary if they are the same names as the controller actions
+
   resources :sessions, only: [:new, :create, :destroy]
   match '/login',  to: 'sessions#new'
   match '/logout', to: 'sessions#destroy'

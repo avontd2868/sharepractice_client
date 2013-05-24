@@ -1,5 +1,3 @@
-#1. @current_user is nil
-#2. cannot access session variables
 class UsersController < ApplicationController
   before_filter :require_login, only: [:show, :edit, :update, :destroy]
   skip_before_filter :current_user?
@@ -52,6 +50,8 @@ class UsersController < ApplicationController
     response = handle_error_response(@new_prescription)
     respond_with(@new_prescription, :location => nil)
   end
+
+  private
 
   def respond_with_json(response)
     respond_with(response) do |format|
