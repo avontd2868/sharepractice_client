@@ -144,6 +144,10 @@ $(document).ready(function () {
         return vars;
     }
 
+    $('.edit-treatment-search').live('keypress',function (event) {
+        if (event.currentTarget === this)
+            $(this).parent().removeClass('open');
+    });
 
     var setupEditTreatmentSearchResult = function () {
         $('.edit-treatment-search-result').unbind();
@@ -282,7 +286,7 @@ $(document).ready(function () {
 
     var newSignatureRow = '<tr class="edit-prescription-row">'+
                           '<td class="edit-prescription-cell">'+
-                          '<button class="close remove-signature">&times;</button>'+
+                          '<label class="close remove-signature">&times;</label>'+
                           '<label>Treatment name</label>'+
                           '<div class="dropdown"><input type="text" class="edit-treatment-search">'+
                           '<table class="table table-hover dropdown-menu edit-treatment-search-results"></table>'+
@@ -399,8 +403,8 @@ $(document).ready(function () {
     });
 
     var setupPrescription = function () {
-        $('.treatment').unbind('click');
-        $('.treatment').click(function () {
+        //$('.treatment').unbind('click');
+        $('.treatment').live("click", function () {
             if (lastRequest) {
                 lastRequest.abort();
             }
@@ -410,7 +414,7 @@ $(document).ready(function () {
             $(this).parent().addClass('info');
             $('#edit-prescription').empty();
             $('#prescriptions').empty();
-            $('#add-prescription-button').addClass('hidden');
+            //$('#add-prescription-button').addClass('hidden');
 
             treatmentCui = $(this).data('cui');
 
@@ -481,9 +485,18 @@ $(document).ready(function () {
 
             $(".loading").remove();
             $('#treatment-search-dropdown-container').removeClass('open');
+            clicked = $('#' + $(this).data('cui'));
 
+            if (clicked.size() > 0) {
+                clicked.click();
+            } else {
+                $('#treatment-row').removeClass('info')
+                $('#treatments').prepend('<tr class="treatment-row info"><td data-cui="' + $(this).data('cui') + '" class="treatment"  id="' + $(this).data('cui') + '">' + $(this).html() + '</td></tr>');
 
-            $('#treatments').append('<tr class="treatment-row"><td data-cui="' + $(this).data('cui') + '" class="treatment">' + $(this).html() + '</td></tr>');
+                $('#add-prescription-button').removeClass('hidden');
+                $('.treatment-row.info').find('.treatment').click();
+                $('#add-prescription-button').click();
+            }
             setupPrescription();
         });
     };
@@ -542,7 +555,7 @@ $(document).ready(function () {
             $('#treatments').empty();
             $('#treatment-search').addClass('hidden');
             $('#prescriptions').empty();
-            $('#add-prescription-button').addClass('hidden');
+            $('#add-prescription-button').removeClass('hidden');
 
             $(this).append($("#loading-img").clone().removeClass("hidden").attr("id", null).addClass("loading"));
 
@@ -562,14 +575,19 @@ $(document).ready(function () {
                 var treatments = results['treatments'];
                 
                 var items = [];
-                items.push('<tr class="treatment-row"><td>Definition: ' + results['definition'] + '</td></tr>');
+                def = $('#definition')
+//                if (def.size() > 0)
+  //                  def.html('Definition: ' + results['definition']);
+    //            else
+      //              $('#treatments').parent().prepend('<div class="span3" style="height:20px;width:40px;" id="definition">Definition: ' + results['definition'] + '</div>');
+
                 $.each(treatments, function (idx, treatment) {
-                    items.push('<tr class="treatment-row"><td data-cui="' + treatment['rx_code'] + '" class="treatment">' + treatment['name'] + '</td></tr>');
+                    items.push('<tr class="treatment-row"><td data-cui="' + treatment['rx_code'] + '" class="treatment" id="' + treatment['rx_code'] + '">' + treatment['name'] + '</td></tr>');
                 });
 
                 $('#treatments').html(items.join(''));
-                $('#treatment-search').removeClass('hidden');
 
+                $('#treatment-search').removeClass('hidden');
                 setupPrescription();
             });
         }));
@@ -585,7 +603,7 @@ $(document).ready(function () {
                                 if (signature['rx_code'] === treatmentCui) {
                                     var item = "";
                                     //$.each(prescription['sigs'], function (idx, signature) {
-                                        var signa = '<tr class="edit-prescription-row"><td class="edit-prescription-cell"><button class="close remove-signature">&times;</button>' +
+                                        var signa = '<tr class="edit-prescription-row"><td class="edit-prescription-cell"><label class="close remove-signature">&times;</label>' +
                                             '<label>Treatment name</label><div class="dropdown">' +
                                             '<input type="text" class="edit-treatment-search" value="{0}"><table class="table table-hover dropdown-menu edit-treatment-search-results">' +
                                             '</table></div><label>Dose</label><div class="control-group"><div class="controls"><div class="dropdown">' +
