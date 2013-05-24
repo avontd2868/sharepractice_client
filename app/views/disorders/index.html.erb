@@ -1,0 +1,16 @@
+<div id="navbar-inner">
+  <h2>Disorders Index</h2>
+</div>
+
+<div class='container'>
+  <h4>Add Disorders</h4>
+
+  <%= form_for disorders_path do |f| %>
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div class="actions"><%= submit_tag "Create Disorder" %>
+    </div>
+  <% end %>
+</div>
