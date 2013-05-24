@@ -3,33 +3,24 @@ SpWebapp::Application.routes.draw do
   root :to => 'sessions#new'
   
   resources :users
-  #defaults paths:
-  #new    =users/new
-  #create =users
-  #show   =users/id
-  #edit   =users/id/edit
-  #update =users/id
   match '/signup',  to: 'users#new'
   match '/profile', to: 'users#show'
-  #match '/profile/edit', to: 'users#edit'
-  match '/disorders/search', to: 'users#search_disorders'
-  match '/disorders/:cui', to: 'users#find_a_disorder'
+  match '/dashboard/disorders/search', to: 'users#search_disorders'
+  match '/dashboard/disorders/:cui', to: 'users#find_a_disorder'
   match '/treatments/search', to: 'users#search_treatments'
   match '/prescriptions/:cui', to: 'users#find_prescriptions_for_disorder'
   match '/prescriptions', to: 'users#add_prescription'
 
-  resources :disorders
-  # match 'disorders/new', to: 'disorders#new'
-  # match 'disorders/show/:id', to: 'disorders#show'
-  # match 'disorders/destroy', to: 'disorders#destroy'
-  #the above aren't necessary if they are the same names as the controller actions
+  #resources :disorders
+  match 'disorders', to: "disorders#index"
+  get "disorders/new"
+  post "disorders/new", to: 'disorders#create'
 
   resources :sessions, only: [:new, :create, :destroy]
   match '/login',  to: 'sessions#new'
   match '/logout', to: 'sessions#destroy'
 
-  resources :admin
-  match '/dashboard', to: 'admin#index'
+  match '/dashboard', to: 'admin#index', via: 'get'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

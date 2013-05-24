@@ -552,7 +552,7 @@ $(document).ready(function () {
             disorderCui = $(this).data('cui');
 
             var params = jQuery.extend({}, authParams);
-            lastRequest = $.getJSON('/disorders/' + disorderCui + '/', params, function (data) {
+            lastRequest = $.getJSON('/dashboard/disorders/' + disorderCui + '/', params, function (data) {
                 lastRequest = null;
 
                 $(".loading").remove();
@@ -693,7 +693,7 @@ $(document).ready(function () {
 
         var params = jQuery.extend({}, authParams);
         params['q'] = $(this).val();
-        lastRequest = $.getJSON('/disorders/search', params, function (data) {
+        lastRequest = $.getJSON('/dashboard/disorders/search', params, function (data) {
             lastRequest = null;
 
             var disorders = data['results'];

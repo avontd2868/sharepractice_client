@@ -1,6 +1,5 @@
-require 'rsolr'
-
 class Disorder
+  #require 'rsolr'
   #'http://app1.pinkberry.me:8080/apache-solr-4.0.0-BETA/collection1'
   #'http://db2.pinkberry.me:8983/solr/disorder'
 
@@ -25,39 +24,48 @@ class Disorder
   end
 
   def create(name)
-    #if doesn't exist
+    unless big_solr_has?(name)
       id = create_new_id
       code = create_new_code(name)
-      @solr.add {:label => name, :id => id, :code => code, :type => "Disorder"}
+      @solr.add ({:label => name, :id => id, :code => code, :type => "Disorder"})
       @solr.commit
-    #else
-      #make an error with notice to user "Disorder already exists. Please enter a new disorder name."
-    #end
+    else
+      make_error("Disorder already exists")
+    end
   end
 
-  def find(id)
-    response = @solr.get 'select', :params => {:q => "id:#{id}", :wt => :json}
-    #valid response for existing object:
-    #{"responseHeader":{"status":0,"QTime":0,"params":{"q":"id:213658","wt":"json"}},"response":{"numFound":1,"start":0,"docs":[{"id":213658,"code":"SP6Labyrinthitis0","label":"Labyrinthitis","solr_label":["_START_Labyrinthitis","_START_Labyrinthitides","_START_Labyrinthitis","_START_Otitis Interna","_START_Labyrinthitis, NOS","_START_Labyrinthitis NOS","_START_Labyrinthitis, unspecified","_START_Unspecified labyrinthitis","_START_Inner ear inflammation","_START_Inflammation of the inner ear(s)","_START_labyrinthitis (diagnosis)","_START_Labyrinthitis (disorder)","_START_Labyrinthitis NOS (disorder)","_START_Unspecified labyrinthitis (disorder)","_START_Labyrinthitis, unspecified ear","_START_Labyrinthitis [Disease/Finding]","_START_hyperemia; labyrinth","_START_inflammation; inner ear","_START_inner ear; inflammation","_START_interna; otitis","_START_labyrinth; hyperemia","_START_otitis; interna"],"type":"Disorder","_version_":1428066787804577792}]}}
-    #valid response for nonexistent object:
-    #{"responseHeader":{"status":0,"QTime":1,"params":{"q":"id:12353525452","wt":"json"}},"response":{"numFound":0,"start":0,"docs":[]}}
-  end
+  # def find(id)
+  #   response = @solr.get 'select', :params => {:q => "id:#{id}", :wt => :json}
+  #   #valid response for existing object:
+  #   #{"responseHeader":{"status":0,"QTime":0,"params":{"q":"id:213658","wt":"json"}},"response":{"numFound":1,"start":0,"docs":[{"id":213658,"code":"SP6Labyrinthitis0","label":"Labyrinthitis","solr_label":["_START_Labyrinthitis","_START_Labyrinthitides","_START_Labyrinthitis","_START_Otitis Interna","_START_Labyrinthitis, NOS","_START_Labyrinthitis NOS","_START_Labyrinthitis, unspecified","_START_Unspecified labyrinthitis","_START_Inner ear inflammation","_START_Inflammation of the inner ear(s)","_START_labyrinthitis (diagnosis)","_START_Labyrinthitis (disorder)","_START_Labyrinthitis NOS (disorder)","_START_Unspecified labyrinthitis (disorder)","_START_Labyrinthitis, unspecified ear","_START_Labyrinthitis [Disease/Finding]","_START_hyperemia; labyrinth","_START_inflammation; inner ear","_START_inner ear; inflammation","_START_interna; otitis","_START_labyrinth; hyperemia","_START_otitis; interna"],"type":"Disorder","_version_":1428066787804577792}]}}
+  #   #valid response for nonexistent object:
+  #   #{"responseHeader":{"status":0,"QTime":1,"params":{"q":"id:12353525452","wt":"json"}},"response":{"numFound":0,"start":0,"docs":[]}}
+  # end
 
-  def delete(id)
-    #solr = RSolr.connect :url => 'http://localhost:8983/solr/disorder'
-    #response = solr.delete_by_id id #'solr/disorder'
-    response = @solr.delete_by_id(id)
-    @solr.commit
-  end
+  # def delete(id)
+  #   #solr = RSolr.connect :url => 'http://localhost:8983/solr/disorder'
+  #   #response = solr.delete_by_id id #'solr/disorder'
+  #   response = @solr.delete_by_id(id)
+  #   @solr.commit
+  # end
 
   private
+
+  def big_solr_has?(disorder_name)
+    false
+    #check if disorder_name is in solr
+  end
 
   def create_new_id
     000001
   end
 
   def create_new_code(name)
-    "FAKE" + name.delete(" ")[0..17] + "CODE"
+    "FAKE" + name.gsub(/\s/, "")[0..17] + "CODE"
+  end
+
+  def make_error(message)
+    #make an error with notice to user "Disorder already exists. Please enter a new disorder name."
   end
   # protected
   # def self.prepare_query(query)
@@ -89,11 +97,11 @@ end
 
 #response = Disorder.create('new treatment')
 # disorder = Disorder.new('/disorder')
-# response = disorder.create('sample test disorder name')
-#response = disorder.delete(210185)
+# #response = disorder.create('sample test disorder name')
+# #response = disorder.delete(210185)
 # response = disorder.find(210185)
 # puts response
-#response.response.docs.each do |disorder|
+# #response.response.docs.each do |disorder|
 #   disorder.id #210304
 #   disorder.code #"SP6Cervicocranialsynd0"
 #   disorder.label #"Cervicocranial syndrome"
@@ -106,11 +114,3 @@ end
 #           "_START_cervicocranial; syndrome",
 #           "_START_syndrome; cervicocranial"
 #         ]
-
-
-
-
-
-
-
-

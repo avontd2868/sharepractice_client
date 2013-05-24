@@ -1,7 +1,5 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
-#gem 'bcrypt'
-gem 'clearance'
 gem 'figaro'
 gem 'httparty'
 gem 'jquery-rails'
