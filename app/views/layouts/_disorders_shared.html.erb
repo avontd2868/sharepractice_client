@@ -1,0 +1,33 @@
+<script type="text/javascript" language="javascript">    
+function load_new_disorder() {
+  <%= remote_function(:url => {:controller => "disorders", :action => "create"}, :update => "disorders")%>
+};
+</script>
+
+<div id="navbar-inner">
+  <h2>Disorders</h2>
+</div>
+
+<div class='container'>
+  <h4>Add New Disorders</h4>
+
+  <%= form_for 'new_disorder_path' do |f| %>
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div class="actions"><%= button_to_document, :label =>document_add_disorder_field, :onclick => remote_function(:controller => 'disorder', :action => 'create') %></div>
+  <% end %>
+
+  <h4>Search Disorders</h4>
+
+  <%= form_for 'search_disorder_path' do |f| %>
+    <div class="field">
+      <%= f.label :search %>
+      <%= f.text_field :q %>
+    </div>
+    <div class="actions"><%= submit_tag "Search" %></div>
+  <% end %>
+
+  <%= render "disorders/search.html.erb", :action => "search" %>
+</div>

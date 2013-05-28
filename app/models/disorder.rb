@@ -18,9 +18,17 @@ class Disorder
   #   @result = spell_check_response
   # end
 
+  attr_accessor :solr, :dx_code, :name, :definition, :codes, :resource_uri#, :treatments??
+
   def initialize(uri)
     @uri = uri
     @solr = RSolr.connect(:url => "http://localhost:8983/solr/#{uri}", :update_format => :json)
+    # @dx_code => disorder.sp_code
+    # @name => disorder.label
+    # @definition => disorder.definition
+    # @codes => disorder.codes
+    # @resource_uri => resource_uri
+    # @treatments => treatments
   end
 
   def create(name)

@@ -11,10 +11,9 @@ SpWebapp::Application.routes.draw do
   match '/prescriptions/:cui', to: 'users#find_prescriptions_for_disorder'
   match '/prescriptions', to: 'users#add_prescription'
 
-  #resources :disorders
+  resources :disorders
   match 'disorders', to: "disorders#index"
-  get "disorders/new"
-  post "disorders/new", to: 'disorders#create'
+  post 'disorders/new', to: "disorders#create"
 
   resources :sessions, only: [:new, :create, :destroy]
   match '/login',  to: 'sessions#new'

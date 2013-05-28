@@ -2,6 +2,9 @@ class DisordersController < ApplicationController
   respond_to :html
 
   def index
+  end
+
+  def new
     @disorder = Disorder.new('/disorder')
   end
 
@@ -20,7 +23,7 @@ class DisordersController < ApplicationController
     @disorder = User.find_a_disorder(params[:cui], session[:api_key])
   end
 
-  # def search
-  #   @disorders = User.find_disorders(params[:q], session[:api_key])
-  # end
+  def search
+    @disorders = User.find_disorders(params[:q], session[:api_key])
+  end
 end
