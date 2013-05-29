@@ -144,9 +144,14 @@ $(document).ready(function () {
         return vars;
     }
 
-    $('.edit-treatment-search').live('keypress',function (event) {
-        if (event.currentTarget === this)
+    $('.edit-treatment-search').live('keydown',function (e) {
+        var keyCode = e.keyCode || e.which;
+
+        if (keyCode == 9 || keyCode == 13) {
             $(this).parent().removeClass('open');
+            $(this).data('cui', "");
+            // call custom function here
+        }
     });
 
     var setupEditTreatmentSearchResult = function () {
@@ -291,6 +296,10 @@ $(document).ready(function () {
                           '<div class="dropdown"><input type="text" class="edit-treatment-search">'+
                           '<table class="table table-hover dropdown-menu edit-treatment-search-results"></table>'+
                           '</div>'+
+                          '<div class="brand-name">'+
+                          '<label>Brand name</label>'+
+                          '<input type="text" placeholder="Enter for free input only" class="brand-input">'+
+                          '</div>'+
                           '<label>Dose</label>'+
                           '<div class="control-group"><div class="controls"><div class="dropdown">'+
                           '<input type="text" class="span1 dose-input">'+
@@ -331,6 +340,7 @@ $(document).ready(function () {
                 }
                 params['rx_cui'] = elem.find('.edit-treatment-search').data('cui');
                 params['rx_name'] = elem.find('.edit-treatment-search').val();
+                params['trade_name'] = elem.find('.brand-input').val();
                 params['dose'] = elem.find('.dose-input').val();
                 params['dose_high'] = elem.find('.dose-high-input').val();
                 params['dose_unit'] = elem.find('.dose-label-input').val();
@@ -606,6 +616,11 @@ $(document).ready(function () {
                                         var signa = '<tr class="edit-prescription-row"><td class="edit-prescription-cell"><label class="close remove-signature">&times;</label>' +
                                             '<label>Treatment name</label><div class="dropdown">' +
                                             '<input type="text" class="edit-treatment-search" value="{0}"><table class="table table-hover dropdown-menu edit-treatment-search-results">' +
+                                            '</div>'+
+                                            '<div class="brand-name">'+
+                                            '<label>Brand name</label>'+
+                                            '<input type="text" placeholder="Enter for free input only" value="{11}" class="brand-input">'+
+                                            '</div>'+
                                             '</table></div><label>Dose</label><div class="control-group"><div class="controls"><div class="dropdown">' +
                                             '<input type="text" class="span1 dose-input" value="{1}">' +
                                             '<input type="text" class="span1 dose-high-input" value="{2}">' +
@@ -624,6 +639,9 @@ $(document).ready(function () {
                                         var rx_name = signature['name'];
                                         if (rx_name == null)
                                             rx_name = "";
+                                        var trade_name = signature['trade_name'];
+                                        if (trade_name == null)
+                                            trade_name = "";
                                         var dose = signature['dose']
                                         if (dose == null)
                                             dose = "";
@@ -655,7 +673,7 @@ $(document).ready(function () {
                                         if (r == null)
                                             r = "";
 
-                                        item = signa.format(rx_name, dose, dose_high, dose_unit, freq, freq_high, fu, d, dur_high, du, r)
+                                        item = signa.format(rx_name, dose, dose_high, dose_unit, freq, freq_high, fu, d, dur_high, du, r, trade_name)
                                     ;
                                     item = '<tr class="edit-prescription-row"><td class="prescription" data-id="' + prescription['id'] + '">' + item + '</td></td>';
                                     items.push(item);
