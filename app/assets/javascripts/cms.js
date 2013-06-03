@@ -446,10 +446,14 @@ $(document).ready(function () {
                                 if (duration == null)
                                     duration = "";
 
+                                var brand = signature['brand']
+                                if (brand == null)
+                                    brand = "";
+
                                 if (signature['dose_high'] == null)
-                                    item += "<p><strong>" + signature['name'] + "</strong></br>" + signature['brand'] + "</p><p>" + signature['dose'] + " " + signature['dose_unit'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit']
+                                    item += "<p><strong>" + signature['name'] + "</strong></br>" + brand + "</p><p>" + signature['dose'] + " " + signature['dose_unit'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit']
                                 else
-                                    item += "<p><strong>" + signature['name'] + "</strong></br>" + signature['brand'] + "</p><p>" + signature['dose'] + "-" + signature['dose_high'] + " " + signature['dose_unit'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit'] + " " + "</p>";
+                                    item += "<p><strong>" + signature['name'] + "</strong></br>" + brand + "</p><p>" + signature['dose'] + "-" + signature['dose_high'] + " " + signature['dose_unit'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit'] + " " + "</p>";
 
                                 if (prescription['note'] != null)
                                     item += "<br/>" + prescription['note']
