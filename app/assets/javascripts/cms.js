@@ -340,7 +340,7 @@ $(document).ready(function () {
                 }
                 params['rx_cui'] = elem.find('.edit-treatment-search').data('cui');
                 params['rx_name'] = elem.find('.edit-treatment-search').val();
-                params['trade_name'] = elem.find('.brand-input').val();
+                params['brand'] = elem.find('.brand-input').val();
                 params['dose'] = elem.find('.dose-input').val();
                 params['dose_high'] = elem.find('.dose-high-input').val();
                 params['dose_unit'] = elem.find('.dose-label-input').val();
@@ -447,9 +447,9 @@ $(document).ready(function () {
                                     duration = "";
 
                                 if (signature['dose_high'] == null)
-                                    item += "<p><strong>" + signature['name'] + "</strong></br>" + signature['trade_name'] + "</p><p>" + signature['dose'] + " " + signature['dose_unit'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit']
+                                    item += "<p><strong>" + signature['name'] + "</strong></br>" + signature['brand'] + "</p><p>" + signature['dose'] + " " + signature['dose_unit'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit']
                                 else
-                                    item += "<p><strong>" + signature['name'] + + "</strong></br>" + signature['trade_name'] + "</p><p>" + signature['dose'] + "-" + signature['dose_high'] + " " + signature['dose_unit'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit'] + " " + "</p>";
+                                    item += "<p><strong>" + signature['name'] + + "</strong></br>" + signature['brand'] + "</p><p>" + signature['dose'] + "-" + signature['dose_high'] + " " + signature['dose_unit'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit'] + " " + "</p>";
 
                                 if (prescription['note'] != null)
                                     item += "<br/>" + prescription['note']
@@ -639,9 +639,9 @@ $(document).ready(function () {
                                         var rx_name = signature['name'];
                                         if (rx_name == null)
                                             rx_name = "";
-                                        var trade_name = signature['trade_name'];
-                                        if (trade_name == null)
-                                            trade_name = "";
+                                        var brand = signature['brand'];
+                                        if (brand == null)
+                                            brand = "";
                                         var dose = signature['dose']
                                         if (dose == null)
                                             dose = "";
@@ -673,7 +673,7 @@ $(document).ready(function () {
                                         if (r == null)
                                             r = "";
 
-                                        item = signa.format(rx_name, dose, dose_high, dose_unit, freq, freq_high, fu, d, dur_high, du, r, trade_name)
+                                        item = signa.format(rx_name, dose, dose_high, dose_unit, freq, freq_high, fu, d, dur_high, du, r, brand)
                                     ;
                                     item = '<tr class="edit-prescription-row"><td class="prescription" data-id="' + prescription['id'] + '">' + item + '</td></td>';
                                     items.push(item);
