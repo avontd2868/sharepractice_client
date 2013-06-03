@@ -449,7 +449,7 @@ $(document).ready(function () {
                                 if (signature['dose_high'] == null)
                                     item += "<p><strong>" + signature['name'] + "</strong></br>" + signature['brand'] + "</p><p>" + signature['dose'] + " " + signature['dose_unit'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit']
                                 else
-                                    item += "<p><strong>" + signature['name'] + + "</strong></br>" + signature['brand'] + "</p><p>" + signature['dose'] + "-" + signature['dose_high'] + " " + signature['dose_unit'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit'] + " " + "</p>";
+                                    item += "<p><strong>" + signature['name'] + "</strong></br>" + signature['brand'] + "</p><p>" + signature['dose'] + "-" + signature['dose_high'] + " " + signature['dose_unit'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit'] + " " + "</p>";
 
                                 if (prescription['note'] != null)
                                     item += "<br/>" + prescription['note']
@@ -597,7 +597,7 @@ $(document).ready(function () {
 
                 $('#treatments').html(items.join(''));
 
-                $('#treatment-search').removeClass('hidden');
+                //$('#treatment-search').removeClass('hidden');
                 setupPrescription();
             });
         }));
