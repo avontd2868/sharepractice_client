@@ -320,7 +320,7 @@ $(document).ready(function () {
                           '<input type="text" class="span1 duration-high-input">'+
                           '<input type="text" class="span2 duration-label-input" value="days">'+
                           '<label>Route</label>'+
-                          '<input type="text" class="span2 route-label-input" value="ORALE">'+
+                          '<input type="text" class="span2 route-label-input" value="ORAL">'+
                           '<table class="table table-hover dropdown-menu"></table>'+
                           '</div></div></div></td></tr>';
 
