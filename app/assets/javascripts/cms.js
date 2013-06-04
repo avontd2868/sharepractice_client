@@ -360,8 +360,8 @@ $(document).ready(function () {
                     if (idx + 1 == $('.edit-prescription-cell').length) {
                         $(".loading").remove();
                         cachePrescriptions = null;
-                        $('.disorder-search-result').find('.disorder').click();
-                        $('.treatment-row.info').find('.treatment').click();
+                        $('.disorder-search-result-row.info').children().click();
+                        $('#add-prescription-button').click();
                     } else {
                         doSubmit(idx + 1, elem.parent().next().children());
                     }
