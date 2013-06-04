@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @dx.name %>
+</p>
+
+<p>
+  <b>Definition:</b>
+  <%= @dx.definition %>
+</p>
+
+<p>
+  <b>Dx code:</b>
+  <%= @dx.dx_code %>
+</p>
+
+<p>
+  <b>Codes:</b>
+  <%= @dx.codes %>
+</p>
+
+<p>
+  <b>Resource uri:</b>
+  <%= @dx.resource_uri %>
+</p>
+
+
+<%= link_to 'Edit', edit_dx_path(@dx) %> |
+<%= link_to 'Back', dxes_path %>

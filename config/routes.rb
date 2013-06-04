@@ -1,5 +1,7 @@
 SpWebapp::Application.routes.draw do
 
+  resources :dxes
+
   root :to => 'sessions#new'
   
   resources :users
@@ -13,7 +15,6 @@ SpWebapp::Application.routes.draw do
 
   resources :disorders
   match 'disorders', to: "disorders#index"
-  post 'disorders/new', to: "disorders#create"
 
   resources :sessions, only: [:new, :create, :destroy]
   match '/login',  to: 'sessions#new'

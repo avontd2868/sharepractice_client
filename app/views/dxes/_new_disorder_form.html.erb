@@ -1,0 +1,32 @@
+<%= form_for(@dx) do |f| %>
+  <% if @dx.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dx.errors.count, "error") %> prohibited this disorder from being saved:</h2>
+
+      <ul>
+      <% @dx.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.text_field :name, :placeholder => "Name" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :definition, :placeholder => "Definition" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :dx_code, :placeholder => "Dx Code" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :codes, :placeholder => "Codes" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :resource_uri, :placeholder => "Resource URI" %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Submit', :id => 'new_disorder_submit' %>
+  </div>
+<% end %>

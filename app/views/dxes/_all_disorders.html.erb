@@ -1,0 +1,25 @@
+<table id="all-disorders">
+  <tr>
+    <th>Name</th>
+    <th>Definition</th>
+    <th>Dx code</th>
+    <th>Codes</th>
+    <th>Resource uri</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @dxes.each do |dx| %>
+  <tr id="<%= dx.dx_code %>">
+    <td><%= dx.name %></td>
+    <td><%= dx.definition %></td>
+    <td><%= dx.dx_code %></td>
+    <td><%= dx.codes %></td>
+    <td><%= dx.resource_uri %></td>
+    <td><%= link_to 'Show', dx %></td>
+    <td><%= link_to 'Edit', edit_dx_path(dx) %></td>
+    <td><%= link_to 'Destroy', dx, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>

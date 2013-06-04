@@ -16,7 +16,7 @@ function load_new_disorder() {
       <%= f.label :name %>
       <%= f.text_field :name %>
     </div>
-    <div class="actions"><%= button_to_document, :label =>document_add_disorder_field, :onclick => remote_function(:controller => 'disorder', :action => 'create') %></div>
+    <div class="actions"><%= button_to_document, :onclick => remote_function(:controller => 'disorder', :action => 'create') %></div>
   <% end %>
 
   <h4>Search Disorders</h4>
