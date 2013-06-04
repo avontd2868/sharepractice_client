@@ -61,6 +61,7 @@ class User
   def self.new_prescription(params, api_key)
     User.post("/api/v1/prescriptions", :query => {:rx_code => params[:rx_cui],
                                                   :rx_name => params[:rx_name],
+                                                  :brand => params[:brand],
                                                   :rx_id => params[:rx_id],
                                                   :dose => params[:dose],
                                                   :dose_high => params[:dose_high],

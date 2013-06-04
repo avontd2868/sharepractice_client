@@ -144,9 +144,14 @@ $(document).ready(function () {
         return vars;
     }
 
-    $('.edit-treatment-search').live('keypress',function (event) {
-        if (event.currentTarget === this)
+    $('.edit-treatment-search').live('keydown',function (e) {
+        var keyCode = e.keyCode || e.which;
+
+        if (keyCode == 9 || keyCode == 13) {
             $(this).parent().removeClass('open');
+            $(this).data('cui', "");
+            // call custom function here
+        }
     });
 
     var setupEditTreatmentSearchResult = function () {
@@ -291,6 +296,10 @@ $(document).ready(function () {
                           '<div class="dropdown"><input type="text" class="edit-treatment-search">'+
                           '<table class="table table-hover dropdown-menu edit-treatment-search-results"></table>'+
                           '</div>'+
+                          '<div class="brand-name">'+
+                          '<label>Brand name</label>'+
+                          '<input type="text" placeholder="Enter for free input only" class="brand-input">'+
+                          '</div>'+
                           '<label>Dose</label>'+
                           '<div class="control-group"><div class="controls"><div class="dropdown">'+
                           '<input type="text" class="span1 dose-input">'+
@@ -311,7 +320,7 @@ $(document).ready(function () {
                           '<input type="text" class="span1 duration-high-input">'+
                           '<input type="text" class="span2 duration-label-input" value="days">'+
                           '<label>Route</label>'+
-                          '<input type="text" class="span2 route-label-input" value="ORALE">'+
+                          '<input type="text" class="span2 route-label-input" value="ORAL">'+
                           '<table class="table table-hover dropdown-menu"></table>'+
                           '</div></div></div></td></tr>';
 
@@ -331,6 +340,7 @@ $(document).ready(function () {
                 }
                 params['rx_cui'] = elem.find('.edit-treatment-search').data('cui');
                 params['rx_name'] = elem.find('.edit-treatment-search').val();
+                params['brand'] = elem.find('.brand-input').val();
                 params['dose'] = elem.find('.dose-input').val();
                 params['dose_high'] = elem.find('.dose-high-input').val();
                 params['dose_unit'] = elem.find('.dose-label-input').val();
@@ -350,8 +360,8 @@ $(document).ready(function () {
                     if (idx + 1 == $('.edit-prescription-cell').length) {
                         $(".loading").remove();
                         cachePrescriptions = null;
-                        $('.disorder-search-result').find('.disorder').click();
-                        $('.treatment-row.info').find('.treatment').click();
+                        $('.disorder-search-result-row.info').children().click();
+                        $('#add-prescription-button').click();
                     } else {
                         doSubmit(idx + 1, elem.parent().next().children());
                     }
@@ -436,10 +446,14 @@ $(document).ready(function () {
                                 if (duration == null)
                                     duration = "";
 
+                                var brand = signature['brand']
+                                if (brand == null)
+                                    brand = "";
+
                                 if (signature['dose_high'] == null)
-                                    item += "<p><strong>" + signature['name'] + "</strong></p><p>" + signature['dose'] + " " + signature['dose_unit'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit']
+                                    item += "<p><strong>" + signature['name'] + "</strong></br>" + brand + "</p><p>" + signature['dose'] + " " + signature['dose_unit'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit']
                                 else
-                                    item += "<p><strong>" + signature['name'] + "</strong></p><p>" + signature['dose'] + "-" + signature['dose_high'] + " " + signature['dose_unit'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit'] + " " + "</p>";
+                                    item += "<p><strong>" + signature['name'] + "</strong></br>" + brand + "</p><p>" + signature['dose'] + "-" + signature['dose_high'] + " " + signature['dose_unit'] + " / " + freq + " " + signature['frequency_unit'] + " / " + duration + " " + signature['duration_unit'] + " " + "</p>";
 
                                 if (prescription['note'] != null)
                                     item += "<br/>" + prescription['note']
@@ -587,7 +601,7 @@ $(document).ready(function () {
 
                 $('#treatments').html(items.join(''));
 
-                $('#treatment-search').removeClass('hidden');
+                //$('#treatment-search').removeClass('hidden');
                 setupPrescription();
             });
         }));
@@ -606,6 +620,11 @@ $(document).ready(function () {
                                         var signa = '<tr class="edit-prescription-row"><td class="edit-prescription-cell"><label class="close remove-signature">&times;</label>' +
                                             '<label>Treatment name</label><div class="dropdown">' +
                                             '<input type="text" class="edit-treatment-search" value="{0}"><table class="table table-hover dropdown-menu edit-treatment-search-results">' +
+                                            '</div>'+
+                                            '<div class="brand-name">'+
+                                            '<label>Brand name</label>'+
+                                            '<input type="text" placeholder="Enter for free input only" value="{11}" class="brand-input">'+
+                                            '</div>'+
                                             '</table></div><label>Dose</label><div class="control-group"><div class="controls"><div class="dropdown">' +
                                             '<input type="text" class="span1 dose-input" value="{1}">' +
                                             '<input type="text" class="span1 dose-high-input" value="{2}">' +
@@ -624,6 +643,9 @@ $(document).ready(function () {
                                         var rx_name = signature['name'];
                                         if (rx_name == null)
                                             rx_name = "";
+                                        var brand = signature['brand'];
+                                        if (brand == null)
+                                            brand = "";
                                         var dose = signature['dose']
                                         if (dose == null)
                                             dose = "";
@@ -655,7 +677,7 @@ $(document).ready(function () {
                                         if (r == null)
                                             r = "";
 
-                                        item = signa.format(rx_name, dose, dose_high, dose_unit, freq, freq_high, fu, d, dur_high, du, r)
+                                        item = signa.format(rx_name, dose, dose_high, dose_unit, freq, freq_high, fu, d, dur_high, du, r, brand)
                                     ;
                                     item = '<tr class="edit-prescription-row"><td class="prescription" data-id="' + prescription['id'] + '">' + item + '</td></td>';
                                     items.push(item);
