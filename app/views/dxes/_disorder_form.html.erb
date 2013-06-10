@@ -1,4 +1,5 @@
-<%= form_for(@dx) do |f| %>
+<%= form_for @dx do |f| %>
+
   <% if @dx.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@dx.errors.count, "error") %> prohibited this disorder from being saved:</h2>

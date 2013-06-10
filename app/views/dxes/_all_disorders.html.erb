@@ -10,16 +10,6 @@
     <th></th>
   </tr>
 
-<% @dxes.each do |dx| %>
-  <tr id="<%= dx.dx_code %>">
-    <td><%= dx.name %></td>
-    <td><%= dx.definition %></td>
-    <td><%= dx.dx_code %></td>
-    <td><%= dx.codes %></td>
-    <td><%= dx.resource_uri %></td>
-    <td><%= link_to 'Show', dx %></td>
-    <td><%= link_to 'Edit', edit_dx_path(dx) %></td>
-    <td><%= link_to 'Destroy', dx, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<%= render :partial => 'dx', :collection => @all_dxes %>
+
 </table>

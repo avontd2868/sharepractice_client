@@ -1,0 +1,24 @@
+<div class="disorder-row">
+  <tr id="<%= dx.dx_code %>">
+    <td><%= dx.name %></td>
+    <td><%= dx.definition %></td>
+    <td><%= dx.dx_code %></td>
+    <td><%= dx.codes %></td>
+    <td><%= dx.resource_uri %></td>
+    <td><%= link_to 'Show', dx %></td>
+    <td class="edit-button"><%= link_to 'Edit' %></td>
+    <td><%= link_to 'Destroy', dx, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    
+    <%= render 'disorder_edit' %>
+    <td><div class="disorder-edit hidden">
+      <%= form_tag(dx_path(dx), :remote => true, :method => "Put") do %>
+        <%= text_area_tag("message", nil, :class => 'message') %>
+        <%= submit_tag("Submit changes", :class => 'btn btn-primary') %>
+      <% end %>
+
+      <%= form_tag(dx_path(dx), :remote => true, :method => "Put", :class => 'cancel') do %>
+        <%= submit_tag("Cancel", :class => 'btn btn-danger action') %>
+      <% end %>
+    </div></td>
+  </tr>
+</div>
