@@ -1,4 +1,4 @@
-class AdminController < ApplicationController
+class CmsController < ApplicationController
   before_filter :require_login
   skip_before_filter :current_user?
 
