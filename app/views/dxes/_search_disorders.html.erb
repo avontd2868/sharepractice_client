@@ -1,4 +1,4 @@
-<table>
+<table id="search-disorders">
   <tr>
     <th>Name</th>
     <th>Definition</th>
@@ -10,16 +10,5 @@
     <th></th>
   </tr>
 
-<% @dxes.each do |dx| %>
-  <tr>
-    <td><%= dx.name %></td>
-    <td><%= dx.definition %></td>
-    <td><%= dx.dx_code %></td>
-    <td><%= dx.codes %></td>
-    <td><%= dx.resource_uri %></td>
-    <td><%= link_to 'Show', dx %></td>
-    <td><%= link_to 'Edit', edit_dx_path(dx) %></td>
-    <td><%= link_to 'Destroy', dx, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<%= render :partial => 'dx', :collection => @search_result_dxes %>
 </table>
