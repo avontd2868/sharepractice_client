@@ -18,16 +18,6 @@ end
 
 group :development, :test do
   gem 'annotate'
-  gem 'capybara'
-  gem 'factory_girl_rails'
-  gem 'faker'
-  gem 'guard-rspec'
-  gem 'guard-spork'
-  gem 'rspec-rails', ">= 2.0.0.beta"
-  gem 'shoulda-matchers'
-  gem 'simplecov'
-  gem 'spork'
-  gem 'quiet_assets'
 end
 
 group :production do
