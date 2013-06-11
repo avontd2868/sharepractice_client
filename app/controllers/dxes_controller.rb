@@ -52,8 +52,8 @@ class DxesController < ApplicationController
     @dx.destroy
 
     respond_to do |format|
-      format.json {render json: true, head: :ok}
-      #format.json { head :no_content, status :200 }
+      format.json { render :nothing => true }
+      # format.json {render json: true, head: :ok}
     end
     #TODO: process errors
   end
