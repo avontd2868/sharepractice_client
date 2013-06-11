@@ -1,5 +1,5 @@
 class DxesController < ApplicationController
-  
+
   # GET /dxes
   def index
     @all_dxes = Dx.all
@@ -17,7 +17,7 @@ class DxesController < ApplicationController
     @dx = Dx.new(params[:dx])
     respond_to do |format|
       if @dx.save
-        format.js
+        format.json { head :no_content }
         #render json: @dx, status: :created, location: @dxes
       else
         render 'index'
@@ -52,8 +52,9 @@ class DxesController < ApplicationController
     @dx.destroy
 
     respond_to do |format|
-      #format.html { redirect_to dxes_url }
-      format.js
+      format.json {render json: true, head: :ok}
+      #format.json { head :no_content, status :200 }
     end
+    #TODO: process errors
   end
 end
