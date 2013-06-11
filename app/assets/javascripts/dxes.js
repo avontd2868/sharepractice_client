@@ -5,7 +5,7 @@
 $(document).ready(function () {
 
 $('.delete_dx').bind('ajax:success', function() {  
-    $(this).closest('tr').fadeOut();  
+    $(this).closest('tr').fadeOut();
 });
 // $('.edit-treatment-search').live('keydown',function (e) {
 //         var keyCode = e.keyCode || e.which;
@@ -22,7 +22,7 @@ $('.delete_dx').bind('ajax:success', function() {
         //make the disorder edit form show
         //$(this).('.disorder-edit').removeClass('hidden');
 //$('.disorder-edit').removeClass('hidden');
-};
+});
 //};
 //         $(this).parent().addClass('info');
 //         $('#edit-prescription').empty();

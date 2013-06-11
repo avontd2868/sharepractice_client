@@ -1,17 +1,10 @@
-<div class="disorder-row">
-  <tr id="<%= dx.id %>">
-    <td><%= dx.name %></td>
-    <td><%= dx.definition %></td>
-    <td><%= dx.dx_code %></td>
-    <td><%= dx.codes %></td>
-    <td><%= dx.resource_uri %></td>
-    <td><%= link_to 'Show', dx %></td>
-    <td class="edit-button"><%= link_to 'Edit' %></td>
-    <td><%= link_to 'Destroy', dx, :remote => true, :class => "delete_dx", :method => :delete, data: { confirm: 'Are you sure?' } %></td>
-    
-    <td class="disorder-edit hidden">
-      <%= render 'disorder_form' %>
-    </td>
-    
-  </tr>
-</div>
+<tr class="disorder row" id="<%= dx.id %>">
+  <td><%= dx.name %></td>
+  <td><%= dx.definition %></td>
+  <td><%= dx.dx_code %></td>
+  <td><%= dx.codes %></td>
+  <td><%= dx.resource_uri %></td>
+  <td><%= link_to 'Show', dx %></td>
+  <td class="edit-button"><%= link_to 'Edit' %></td>
+  <td><%= link_to 'Destroy', dx, :remote => true, :class => "delete_dx", :method => :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>

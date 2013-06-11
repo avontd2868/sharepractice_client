@@ -7,17 +7,11 @@ class DxesController < ApplicationController
     @dx = Dx.new
   end
 
-  # GET /dxes/1
-  # def show
-  #   @dx = Dx.find(params[:id])
-  # end
-
-  # POST /dxes
   def create
     @dx = Dx.new(params[:dx])
     respond_to do |format|
       if @dx.save
-        format.json { head :no_content }
+        format.js
         #render json: @dx, status: :created, location: @dxes
       else
         render 'index'
@@ -29,7 +23,6 @@ class DxesController < ApplicationController
     @dx = Dx.find(params[:id])
   end
 
-  # PUT /dxes/1
   def update
     @dx = Dx.find(params[:id])
 
@@ -45,15 +38,14 @@ class DxesController < ApplicationController
   def show
     @dx = Dx.find(params[:id])
   end
-
  
   def destroy
     @dx = Dx.find(params[:id])
     @dx.destroy
 
     respond_to do |format|
-      format.json { render :nothing => true }
-      # format.json {render json: true, head: :ok}
+      #format.json { render :nothing => true }
+      format.js
     end
     #TODO: process errors
   end
