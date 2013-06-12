@@ -6,7 +6,9 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'pg'
 gem 'rails', '4.0.0.rc2'
+gem 'railties'
 gem 'rsolr'
+#gem 'sass-rails'
 gem 'uglifier'
 
 #########rails 4 extracted these old rails features into gems:

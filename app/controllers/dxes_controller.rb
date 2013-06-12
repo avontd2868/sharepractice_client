@@ -8,7 +8,7 @@ class DxesController < ApplicationController
   end
 
   def create
-    @dx = Dx.new(params[:dx])
+    @dx = Dx.new(dx_params) #replaced params[:dx] for rails 4
     respond_to do |format|
       if @dx.save
         format.js
@@ -27,7 +27,7 @@ class DxesController < ApplicationController
     @dx = Dx.find(params[:id])
 
     respond_to do |format|
-      if @dx.update_attributes(params[:dx])
+      if @dx.update_attributes(dx_params)
         format.json { head :no_content }
       else
         render 'error'
@@ -48,5 +48,13 @@ class DxesController < ApplicationController
       format.js
     end
     #TODO: process errors
+  end
+
+  private
+
+  def dx_params
+    params.require(:dx).permit(:codes, :definition, :dx_code, :name, :resource_uri, :id)
+    #same as following, except prevents nil errors from occuring
+    #params[:dx].permit(:codes, :definition, :dx_code, :name, :resource_uri, :id)
   end
 end

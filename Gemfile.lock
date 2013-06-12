@@ -110,5 +110,6 @@ DEPENDENCIES
   protected_attributes
   rails (= 4.0.0.rc2)
   rails-observers
+  railties
   rsolr
   uglifier
