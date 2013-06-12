@@ -6,6 +6,7 @@ class User
   default_params :format => 'json'
   format :json
 
+  #As transition to Rails 4, attr_accessor is removed in favor of user_params in UsersController
   attr_accessor :email, :api_key, :id, :first_name, :last_name, :npi, :phone, :degree, :specialties, :websites, :locations, :history, :verified, :avatar_url
 
   def initialize(response)

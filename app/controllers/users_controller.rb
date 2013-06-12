@@ -93,4 +93,10 @@ class UsersController < ApplicationController
   # def destroy
   #   @user.destroy
   # end
+
+  private
+
+  # def user_params
+  #   params.require(@user).permit(:email, :api_key, :id, :first_name, :last_name, :npi, :phone, :degree, :specialties, :websites, :locations, :history, :verified, :avatar_url)
+  # end
 end
