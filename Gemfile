@@ -5,21 +5,17 @@ gem 'httparty'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'pg'
-gem 'rails', '3.2.12'
+gem 'rails', '4.0.0.rc2'
 gem 'rsolr'
+gem 'uglifier'
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
-end
+#########rails 4 extracted these old rails features into gems:
 
-group :development, :test do
-  gem 'annotate'
-end
+#https://github.com/rails/protected_attributes
+#eg. attr_accessible and attr_protected
+gem 'protected_attributes'
 
-group :production do
+#http://guides.rubyonrails.org/active_record_validations_callbacks.html#observers
+gem 'rails-observers'
 
-end
+##########
