@@ -1,3 +1,15 @@
+<!--div id="search-form">
+  <%#= form_for @search_dxes, :url => search_disorders_path do |f| %>
+    <div class="field">
+      <%#= f.text_field :name, :placeholder => "Enter disorder name" %>
+    </div>
+    <div class="actions">
+      <%#= submit_tag 'Submit', :id => 'search-disorders-submit' %>
+    </div>
+  <#% end %>
+</div-->
+
+<h3>Search Results</h3>
 <table id="search-disorders">
   <tr>
     <th>Name</th>
@@ -10,5 +22,5 @@
     <th></th>
   </tr>
 
-<%= render :partial => 'dx', :collection => @search_result_dxes %>
+<%= render :partial => 'dx', :collection => @search_dxes %>
 </table>

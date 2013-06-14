@@ -1,7 +1,3 @@
-<h2>Disorder Search</h2>
-<%= render 'search_disorders' %>
-<br></br>
-
 <h2>Create New Disorder</h2>
 <%= render 'disorder_form' %>
 <br></br>
@@ -10,13 +6,8 @@
 <%= render 'all_disorders' %>
 <br></br>
 
-<div id="edit-disorder-form">
-  <form>
-    <fieldset>
-      <label for="name">Name</label>
-      <input type="text" name="name" id="name"></input>
-      <label for="definition">Definition</label>
-      <input type="text" name="definition" id="definition"></input>
-    </fieldset>
-  </form> 
-</div>
+<h2>Disorder Search</h2>
+<%= render 'search_disorders' %>
+<br></br>
+
+<%= render 'disorder_edit' %>
