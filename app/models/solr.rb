@@ -21,7 +21,7 @@ class Solr
     @result = response
   end
 
-  def create(name, definition)
+  def create(name, definition="no definition entered")
     #if params are all present and valid
       id = 1234567
       code = "FAKECODE" + name.to_s

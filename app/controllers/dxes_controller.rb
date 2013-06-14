@@ -38,7 +38,7 @@ class DxesController < ApplicationController
   end
 
   def show
-    @dx = Dx.find(params[:id])
+    @dx = Dx.find_by_id(params[:id])
   end
 
   # def search

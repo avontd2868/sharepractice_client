@@ -15,17 +15,18 @@ class Dx < Solr
     client.create(params[:name], params[:definition])
     @name = params[:name]
     @definition = params[:definition]
-    @codes = {}
-    @dx_code = 
-    @resource_uri
-    @id
   end
 
   def self.all
     Solr.new.find('*:*')
   end
 
-  def self.find(query)
-    Solr.new.find(query)
+  def self.find(name)
+    Solr.new.find("name:#{name}")
+  end
+
+  def self.find_by_id(id)
+    response = Solr.new.find("id:#{id}")
+    result = response["response"]["docs"].first
   end
 end
