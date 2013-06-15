@@ -23,7 +23,7 @@ class Solr
 
   def create(name, definition="no definition entered")
     #if params are all present and valid
-      id = 1234567
+      id = custom_fake_id
       code = "FAKECODE" + name.to_s
       solr_label = ["_START_" + definition.to_s]
       solr = RSolr.connect :url => @url
@@ -47,7 +47,7 @@ class Solr
 
   protected
 
-  def custom_id
+  def custom_fake_id
     num = Random.new
     num.rand(1000000..9999999)
   end
@@ -73,8 +73,9 @@ class Solr
     response['response']['docs']
   end
 
+  #ask_solr currently set to show last 100 disorders by descending ID
   def self.ask_solr(solr, query, spellcheck)
-    fq = { :q => query, :fl => '*,score', :rows => 100, :spellcheck => spellcheck }
+    fq = { :q => query, :fl => '*,score', :rows => 100, :sort => "id desc", :spellcheck => spellcheck }
     response = solr.get 'select', :params => fq
   end
 
