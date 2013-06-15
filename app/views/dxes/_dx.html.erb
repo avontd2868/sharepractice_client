@@ -1,10 +1,10 @@
-<tr class="disorder row" id="<%= dx.id %>">
-  <td><%= dx.name %></td>
-  <td><%= dx.definition %></td>
-  <td><%= dx.dx_code %></td>
-  <td><%= dx.codes %></td>
-  <td><%= dx.resource_uri %></td>
-  <td><%= link_to 'Show', dx %></td>
+<tr class="disorder row" id="<%= dx["id"] %>">
+  <td><%= dx["label"] %></td>
+  <td><%= dx["solr_label"] %></td>
+  <td><%= dx["code"] %></td>
+  <td><%= "Codes" %></td>
+  <td><%= "Resource URI" %></td>
+  <td><%= link_to 'Show', "dxes/#{dx["id"]}" %></td>
   <td class="edit-button"><%= link_to 'Edit' %></td>
-  <td><%= link_to 'Destroy', dx, :remote => true, :class => "delete_dx", :method => :delete, data: { confirm: 'Are you sure?' } %></td>
+  <td><%= link_to 'Destroy', "dxes/#{dx["id"]}", :remote => true, :class => "delete_dx", :method => :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>

@@ -39,6 +39,12 @@ class Solr
     #end
   end
 
+  def delete(id)
+    solr = RSolr.connect :url => @url
+    solr.delete_by_id(id)
+    response = solr.commit
+  end
+
   protected
 
   def custom_id

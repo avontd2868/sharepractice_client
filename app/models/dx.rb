@@ -18,7 +18,8 @@ class Dx < Solr
   end
 
   def self.all
-    Solr.new.find('*:*')
+    response = Solr.new.find('*:*')
+    all_dxes = response["response"]["docs"]
   end
 
   def self.find(name)
@@ -28,5 +29,10 @@ class Dx < Solr
   def self.find_by_id(id)
     response = Solr.new.find("id:#{id}")
     result = response["response"]["docs"].first
+  end
+
+  def self.destroy(id)
+    response = Solr.new.delete(id)
+    result = response
   end
 end
